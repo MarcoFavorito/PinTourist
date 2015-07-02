@@ -274,6 +274,7 @@ public class MapsActivity extends FragmentActivity {
 
         }
 
+        
     }
 
 //FINE ELEMENTI PER IL MENU LATERALE
