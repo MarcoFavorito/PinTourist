@@ -62,6 +62,7 @@ public class MapsActivity extends FragmentActivity {
 
     //Pin Obiettivo
     private static Pin mPinTarget;
+    public static Marker mMarkerTarget;
     private static Context context;
     public static GamePhase gamePhase=GamePhase.PIN_CHOICE;
 
@@ -128,7 +129,6 @@ public class MapsActivity extends FragmentActivity {
                 setupPopupIndizi();
             }
         });
-
 
         startGame();
     }
@@ -298,10 +298,10 @@ public class MapsActivity extends FragmentActivity {
                 //trovo l'id del marker premuto per risalire al Pin
                 Toast.makeText(MapsActivity.this, marker.getId(), Toast.LENGTH_LONG).show();
                 int markerId = ((int) marker.getId().toString().charAt(1)) - 49;
-
                 if (gamePhase==GamePhase.PIN_CHOICE) {
                     (Utility.ZonaSanLorenzo.getPins_CurrentZone())[markerId].setObbiettivo();
                     MapsActivity.mPinTarget = (Utility.ZonaSanLorenzo.getPins_CurrentZone())[markerId];
+                    MapsActivity.mMarkerTarget=marker;
                     Utility.markers.get(markerId).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
                     //Utility.markers.get(markerId);
                     Toast.makeText(MapsActivity.this, "You have selected the Pin with id: " + (char) (markerId + 48), Toast.LENGTH_LONG).show();
@@ -339,7 +339,10 @@ public class MapsActivity extends FragmentActivity {
         MapsActivity.dialogIndizi.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         // Carico il layout della dialog al suo intenro
+
         MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi);
+        TextView t= (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
+
 
         // Nel caso fosse previsto un titolo questo sarebbe il codice da
         // utilizzare eliminando quello visto poco sopra per evitarlo
@@ -417,5 +420,7 @@ public class MapsActivity extends FragmentActivity {
         // Faccio comparire la dialog
         MapsActivity.dialogSfida.show();
     }
+
+
 
 }

@@ -1,9 +1,13 @@
 package gamification.pintourist.pintourist;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -47,18 +51,25 @@ public class Avatar {
                         if (!MapsActivity.Suggeritore.getText().toString().equals(R.string.cliccaSulPinIlluminato))
                             MapsActivity.Suggeritore.setText(R.string.cliccaSulPinIlluminato);
                         //avvia animazione
+                        //if (!Utility.animazione.isAlive()) Utility.animazione.run();
                     } else {
                         if (!MapsActivity.Suggeritore.getText().toString().equals(R.string.arrivaAlPin))
                             MapsActivity.Suggeritore.setText(R.string.arrivaAlPin);
+                        //if (Utility.animazione.isAlive()) Utility.animazione.interrupt();
                     }
                 }
             }
 
+
             @Override
             public void onMarkerDragEnd(Marker marker) {
                 onMarkerDrag(marker);
-                if (MapsActivity.getPinTarget()!=null && MapsActivity.getPinTarget().isIlluminato())
-                    Toast.makeText(MapsActivity.getAppContext(),"Illuminato", Toast.LENGTH_LONG).show();
+                if (MapsActivity.getPinTarget()!=null && MapsActivity.getPinTarget().isIlluminato()) {
+                    Toast.makeText(MapsActivity.getAppContext(), "Illuminato", Toast.LENGTH_LONG).show();
+                    //Utility.animazione.start();
+                    Toast.makeText(MapsActivity.getAppContext(), "Illuminato", Toast.LENGTH_LONG).show();
+
+                }
                 }
 
         });
@@ -71,6 +82,33 @@ public class Avatar {
 
     public LatLng getLatLng(){
         return mMarker.getPosition();
+    }
+
+    private Bitmap scaleImage(Resources res, int id, int lessSideSize) {
+        Bitmap b = null;
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeResource(res, id, o);
+
+        float sc = 0.0f;
+        int scale = 1;
+        // if image height is greater than width
+        if (o.outHeight > o.outWidth) {
+            sc = o.outHeight / lessSideSize;
+            scale = Math.round(sc);
+        }
+        // if image width is greater than height
+        else {
+            sc = o.outWidth / lessSideSize;
+            scale = Math.round(sc);
+        }
+
+        // Decode with inSampleSize
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        b = BitmapFactory.decodeResource(res, id, o2);
+        return b;
     }
 
 }

@@ -2,8 +2,11 @@ package gamification.pintourist.pintourist;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.PolygonOptions;
@@ -23,6 +26,37 @@ public class Utility {
     static final int MIN_DSTANCE=20;
     static ArrayList<Marker> markers=new ArrayList<Marker>();
     static Marker avatarMarker;
+    public static Thread animazione=new Thread(new Runnable() {
+        @Override
+        public void run() {
+            float[] iconArray = {
+                    BitmapDescriptorFactory.HUE_AZURE,
+                    BitmapDescriptorFactory.HUE_CYAN,
+                    BitmapDescriptorFactory.HUE_GREEN,
+                    BitmapDescriptorFactory.HUE_MAGENTA,
+                    BitmapDescriptorFactory.HUE_ORANGE,
+                    BitmapDescriptorFactory.HUE_RED,
+                    BitmapDescriptorFactory.HUE_YELLOW
+            };
+                MapsActivity.mMarkerTarget.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                MapsActivity.mMarkerTarget.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+        }
+    });
+
+
+
 
     //Pin_______________________________________________________________________________________________________________________
     static final Context context = MapsActivity.getAppContext();

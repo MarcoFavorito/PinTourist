@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Sfida zona San Lorenzo Pin 3"
-        android:id="@+id/popupIndiziTitolo"
+        android:id="@+id/popupSfidaTitolo"
         android:textSize="20dp"
         android:textStyle="bold"
         />

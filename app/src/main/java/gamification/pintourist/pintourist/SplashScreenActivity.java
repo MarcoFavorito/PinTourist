@@ -13,6 +13,8 @@ import android.view.WindowManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import gamification.pintourist.pintourist.AccessScreenActivity;
+import gamification.pintourist.pintourist.R;
 
 public class SplashScreenActivity extends Activity {
 
@@ -37,6 +39,7 @@ public class SplashScreenActivity extends Activity {
             public void run() {
 
                 // Start the next activity
+
                 Intent mainIntent = new Intent().setClass(
                         SplashScreenActivity.this, AccessScreenActivity.class);
                 startActivity(mainIntent);
