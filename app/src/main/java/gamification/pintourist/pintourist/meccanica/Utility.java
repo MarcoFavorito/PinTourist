@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import gamification.pintourist.pintourist.MapsActivity;
 import gamification.pintourist.pintourist.R;
+import gamification.pintourist.pintourist.meccanica.*;
 
 /*
 Resources.getSystem()
@@ -19,6 +20,7 @@ Resources.getSystem()
 /**
  * Created by Roberto on 19/06/15.
  */
+
 public class Utility {
     //Generics
 
@@ -224,3 +226,4 @@ public class Utility {
 
 
 }
+

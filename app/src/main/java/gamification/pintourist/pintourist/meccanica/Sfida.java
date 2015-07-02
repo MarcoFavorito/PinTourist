@@ -1,10 +1,11 @@
 package gamification.pintourist.pintourist.meccanica;
 
 import android.media.Image;
+import gamification.pintourist.pintourist.meccanica.*;
 
 /**
  * Created by Marco on 11/06/2015.
- */
+*/
 public class Sfida {
 
     private Image immagineSfida;

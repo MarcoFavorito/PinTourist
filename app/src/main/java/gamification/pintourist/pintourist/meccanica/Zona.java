@@ -8,7 +8,7 @@ import gamification.pintourist.pintourist.MapsActivity;
 
 /**
  * Created by Daniel on 04/06/2015.
- */
+*/
 public class Zona {
     private int id;
     private Pin[] pins_CurrentZone;
@@ -102,3 +102,4 @@ public class Zona {
         }
     }
 }
+
