@@ -26,7 +26,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="gamificationlab.pintouristdebug.SplashScreenActivity"
+            android:name="gamification.pintourist.pintourist.SplashScreenActivity"
             android:label="PinTourist" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

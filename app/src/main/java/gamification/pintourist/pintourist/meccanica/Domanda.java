@@ -1,4 +1,4 @@
-package gamification.pintourist.pintourist;
+package gamification.pintourist.pintourist.meccanica;
 
 /**
  * Created by Marco on 11/06/2015.

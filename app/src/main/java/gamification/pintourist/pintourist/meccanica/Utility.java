@@ -1,17 +1,16 @@
-package gamification.pintourist.pintourist;
+package gamification.pintourist.pintourist.meccanica;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.PolygonOptions;
 
 import java.util.ArrayList;
+
+import gamification.pintourist.pintourist.MapsActivity;
+import gamification.pintourist.pintourist.R;
 
 /*
 Resources.getSystem()
@@ -22,10 +21,13 @@ Resources.getSystem()
  */
 public class Utility {
     //Generics
-    static final String Avatartitle="Avatar";
+
+    static final String avatarTitle="Avatar";
+    static final LatLng avatarLatLng = new LatLng(41.8990998, 12.517614);
     static final int MIN_DSTANCE=20;
     static ArrayList<Marker> markers=new ArrayList<Marker>();
     static Marker avatarMarker;
+    /*
     public static Thread animazione=new Thread(new Runnable() {
         @Override
         public void run() {
@@ -54,7 +56,7 @@ public class Utility {
                 }
         }
     });
-
+*/
 
 
 
@@ -63,7 +65,7 @@ public class Utility {
     static Resources myR = context.getResources();//Resources.getSystem();
     static final Pin Verano = new Pin (context.getString(R.string.verano), 41.902932, 12.525009,
           // new Indizio(myR.getStringArray(R.array.indiziVerano)));
-            null);
+            null,null);
     static final Pin Minerva = new Pin (context.getString(R.string.minerva),41.902901, 12.514556);
     static final Pin BasilicaSanLorenzo = new Pin (context.getString(R.string.basilicaSanLorenzo),41.9025562,12.5207542);
 
@@ -132,7 +134,7 @@ public class Utility {
             new LatLng(41.9015423880521, 12.490768432617188),
             new LatLng(41.898380089897174, 12.496905326843262),
             new LatLng(41.897932883580076, 12.496604919433594),
-            new LatLng (41.89668707804063, 12.498278617858887),
+            new LatLng(41.89668707804063, 12.498278617858887),
             new LatLng(41.89668707804063, 12.499265670776367),
             new LatLng(41.887135094867865, 12.5044584274292),
             new LatLng(41.8872948387714, 12.503299713134766),
@@ -150,7 +152,7 @@ public class Utility {
     static final int idZonaRioneMonti= 0;
     //static final int coloreZonaRioneMonti=R.color.transparentRed;
     static final int coloreZonaRioneMonti=0x77FF4444;
-    static final int coloreContornoZonaRioneMonti=R.color.darkred;
+    static final int coloreContornoZonaRioneMonti= R.color.darkred;
     static final PolygonOptions polOpZonaRioneMonti=new PolygonOptions()
             .add(verticiZonaRioneMonti)
             .strokeWidth(STROKE_WIDTH)
@@ -209,12 +211,12 @@ public class Utility {
     //Dichiarazione Zone
 
 
-    static final Zona ZonaSanLorenzo=new Zona(
+    public static final Zona ZonaSanLorenzo=new Zona(
             idZonaSanLorenzo,
             pinZonaSanLorenzo,
             polOpZonaSanLorenzo);
 
-    static final Zona ZonaRioneMonti=new Zona(
+    public static final Zona ZonaRioneMonti=new Zona(
             idZonaRioneMonti,
             null,
             polOpZonaRioneMonti);

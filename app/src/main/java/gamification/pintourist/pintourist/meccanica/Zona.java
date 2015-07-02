@@ -1,14 +1,10 @@
-package gamification.pintourist.pintourist;
-
-import android.location.Location;
+package gamification.pintourist.pintourist.meccanica;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolygonOptions;
-import com.google.android.gms.maps.model.Tile;
 
-import java.util.ArrayList;
+import gamification.pintourist.pintourist.MapsActivity;
 
 /**
  * Created by Daniel on 04/06/2015.
@@ -102,7 +98,7 @@ public class Zona {
         map.addPolygon(this.mPolygonOptions);
         if (this.pins_CurrentZone != null) {
             for (Pin p : this.pins_CurrentZone)
-                Utility.markers.add(map.addMarker(p.getPinMarker()));
+                p.addMarker();
         }
     }
 }

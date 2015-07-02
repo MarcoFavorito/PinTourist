@@ -1,4 +1,4 @@
-package gamification.pintourist.pintourist;
+package gamification.pintourist.pintourist.meccanica;
 
 import android.media.Image;
 

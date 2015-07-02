@@ -8,8 +8,12 @@
     <!--dimensioni popupIndizi-->
     <dimen name="image_popup_indizi_width">100dp</dimen>
     <dimen name="image_popup_indizi_height">100dp</dimen>
+
     <dimen name="popup_indizi_width">300dp</dimen>
     <dimen name="popup_indizi_height">200dp</dimen>
+
+    <dimen name="gestione_indizi_width">500dp</dimen>
+    <dimen name="gestione_indizi_height">300dp</dimen>
 
     <!--dimensioni popupSfida-->
     <dimen name="popup_sfida_width">400dp</dimen>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="@dimen/gestione_indizi_width"
+    android:layout_height="@dimen/gestione_indizi_height"
+    android:background="#15EE44"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="177dp"
+        android:layout_height="match_parent"
+        android:id="@+id/gestioneIndizi.listaPin" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gestioneIndizi.tabellaListaPin">
+            </TableLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gestioneIndizi.listaIndizi"
+        android:layout_gravity="center_vertical" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gestioneIndizi.tabellaListaIndizi">
+        </TableLayout>
+    </ScrollView>
+
+        </LinearLayout>
+</LinearLayout>

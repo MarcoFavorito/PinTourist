@@ -33,22 +33,8 @@ public class AccessScreenActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
-
-
-
-
-
-
-
-
         setContentView(R.layout.access_screen);
         //Button b= (Button) findViewById(R.id.button);
-
-
-
-
-
         //From here copied
         ImageButton start = (ImageButton) findViewById(R.id.start);
         start.setOnClickListener(new View.OnClickListener() {
