@@ -5,7 +5,8 @@
     android:layout_width="@dimen/gestione_indizi_width"
     android:layout_height="@dimen/gestione_indizi_height"
     android:background="#15EE44"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -18,16 +19,43 @@
         android:textSize="@dimen/gestione_indizi_title_size" />
 
     <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pin"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:id="@+id/textViewPin"
+            android:layout_weight="0.26" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Indizi"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:id="@+id/textViewIndizi"
+            android:layout_weight="0.72" />
+    </LinearLayout>
+
+    <LinearLayout
 
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+
+        >
 
 
-    <ScrollView
+        <ScrollView
         android:layout_width="264dp"
         android:layout_height="match_parent"
-        android:id="@+id/gestioneIndizi.listaPin">
+        android:id="@+id/gestioneIndizi.listaPin"
+        android:background="@color/white">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -47,7 +75,8 @@
             android:layout_height="230dp"
             android:id="@+id/gestioneIndizi.listaIndizi"
             android:layout_gravity="center_vertical"
-                android:layout_weight="0.96">
+                android:layout_weight="0.96"
+                android:background="@color/blue">
 
             <TableLayout
                 android:layout_width="match_parent"

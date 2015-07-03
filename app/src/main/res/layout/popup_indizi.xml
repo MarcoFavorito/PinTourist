@@ -38,7 +38,7 @@
                 android:layout_height="@dimen/image_popup_indizi_height"
                 android:layout_below="@+id/popupIndiziImmagine"
                 android:id="@+id/popupIndiziImmagine"
-                android:src="@drawable/pin_icon"
+                android:src="@drawable/verano"
                 android:gravity="center"
                 android:layout_gravity="center_vertical"
                 />
