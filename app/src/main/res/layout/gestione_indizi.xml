@@ -25,7 +25,7 @@
 
 
     <ScrollView
-        android:layout_width="177dp"
+        android:layout_width="264dp"
         android:layout_height="match_parent"
         android:id="@+id/gestioneIndizi.listaPin">
 
@@ -36,19 +36,46 @@
             </TableLayout>
     </ScrollView>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/gestioneIndizi.listaIndizi"
-        android:layout_gravity="center_vertical" >
-
-        <TableLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/gestioneIndizi.tabellaListaIndizi">
-        </TableLayout>
-    </ScrollView>
+            android:layout_height="match_parent">
 
+            <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="209dp"
+            android:id="@+id/gestioneIndizi.listaIndizi"
+            android:layout_gravity="center_vertical" >
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gestioneIndizi.tabellaListaIndizi">
+            </TableLayout>
+        </ScrollView>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="59dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                >
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ok"
+                    android:id="@+id/gestioneIndiziBtnOk"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Altro indizio"
+                    android:id="@+id/gestioneIndiziBtnAltroIndizio"
+                    android:enabled="false"
+                    />
+            </LinearLayout>
         </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
