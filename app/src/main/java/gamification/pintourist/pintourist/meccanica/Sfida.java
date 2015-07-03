@@ -55,6 +55,12 @@ public class Sfida {
     public Domanda getDomandaIndex(int index){
         return domande[index];
     }
+    public boolean hasNextDomanda(){
+        return this.level<this.domande.length-1;
+    }
+    public int tentativiRimasti(){
+        return this.getDomande().length-this.level-1;
+    }
     /*
     public void setDomandeLivello(int livello, Domanda a){
         int i = getlevel(this.domande[livello]);

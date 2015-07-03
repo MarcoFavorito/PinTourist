@@ -351,8 +351,22 @@ public class MapsActivity extends FragmentActivity {
         // Evito la presenza della barra del titolo nella mia dialog
         MapsActivity.dialogIndizi.getWindow();
         MapsActivity.dialogIndizi.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        MapsActivity.dialogIndizi.setCancelable(false);
+        dialogIndizi.setCanceledOnTouchOutside(false);
+        if (pin.getIndizi()==null){
+            MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi);
+            TextView titoloIndizio = (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
+            Button btnOk = (Button) MapsActivity.dialogIndizi.findViewById(R.id.popupIndiziBtnOk);
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    MapsActivity.dialogIndizi.dismiss();
 
+                }
+            });
+            MapsActivity.dialogIndizi.show();
+            return;
 
+        }
         if (pin.getIndizi().getLevel()==2){
             MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi_fine_indizi);
             TextView titoloIndizio = (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
@@ -377,8 +391,7 @@ public class MapsActivity extends FragmentActivity {
             // utilizzare eliminando quello visto poco sopra per evitarlo
             //dialog.setTitle("Testo per il titolo");
 
-            MapsActivity.dialogIndizi.setCancelable(false);
-            dialogIndizi.setCanceledOnTouchOutside(false);
+
 
             // Qui potrei aggiungere eventuali altre impostazioni per la dialog
             Button btnOk = (Button) MapsActivity.dialogIndizi.findViewById(R.id.popupIndiziBtnOk);
@@ -444,7 +457,7 @@ public class MapsActivity extends FragmentActivity {
         dialogSfida.setCanceledOnTouchOutside(false);
 
         TextView domandaSfida= (TextView) dialogSfida.findViewById(R.id.popupSfidaDomanda);
-        domandaSfida.setText(pin.getSfida().getNextDomanda().getQuestion());
+        domandaSfida.setText(pin.getSfida().getNextDomanda().getQuestion()); //ATTENZIONE! CHIAMATA A getNextDomanda IMPORTANTE! VA FATTA UNA SOLA VOLTA
         ImageView immagineSfida = (ImageView) dialogSfida.findViewById(R.id.popupSfidaImmagine);
         immagineSfida.setImageResource(pin.getSfida().getCurrentDomanda().getImage());
 
@@ -580,17 +593,18 @@ public class MapsActivity extends FragmentActivity {
         for (int i=0;i<array.length;i++){
             final int aux=i;
             array[i].setText(q.getPossibleAnswers()[i]);
+            array[i].setTextSize(15);
             array[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (aux==q.getCorrectAnswerIndex()){
+                    if (aux == q.getCorrectAnswerIndex()) {
                         //Hai risposto correttamente! feedback positivo
                         d.dismiss();
                         setupPopupFeedbackPositivo(pin);
 
-                    }
-                    else{
+                    } else {
                         //feedback negativo --> next sfida
+                        d.dismiss();
                         setupPopupFeedbackNegativo(pin);
                     }
                 }
@@ -630,16 +644,37 @@ public class MapsActivity extends FragmentActivity {
         dialogFeedback.setCancelable(false);
         dialogFeedback.setCanceledOnTouchOutside(false);
 
-        
+        if (pin.getSfida().hasNextDomanda()){
+            TextView popupFeedbackNegativoMessaggio = (TextView) dialogFeedback.findViewById(R.id.popupFeedbackMessaggio);
+            popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai ancora "+ pin.getSfida().tentativiRimasti()+" tentativi. Premi sul tasto Ok per continuare");
 
-        Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
-        btnOk.setOnClickListener(new View.OnClickListener() {
+            Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
+            btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogFeedback.dismiss();
                 setupPopupSfida(pin);
-            }
-        });
+                }
+            });
+        }
+        else{
+            TextView popupFeedbackNegativoMessaggio = (TextView) dialogFeedback.findViewById(R.id.popupFeedbackMessaggio);
+            popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai esaurito tutti i tentativi rimasti.\nHai comunque conquistato il Pin. Premi sul tasto Ok per tornare sulla mappa");
+
+            Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogFeedback.dismiss();
+
+                }
+            });
+        }
+
+        pin.setConquistato(true);
+        MapsActivity.gamePhase=GamePhase.PIN_CHOICE;
+        MapsActivity.mPinTarget=null;
+        suggeritore.setText(R.string.scegliPinPartenza);
 
         dialogFeedback.show();
     }
