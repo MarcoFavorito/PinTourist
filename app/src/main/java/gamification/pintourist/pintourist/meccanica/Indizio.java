@@ -12,22 +12,26 @@ public class Indizio {
     private Image[] images;
     public Indizio(String [] arrayIndizi){
         indizi = arrayIndizi;
-        level=0;
+        level=-1;
     }
 
     public Indizio(String [] arrayIndizi, Image[] images){
         indizi = arrayIndizi;
-        this.level=0;
+        this.level=-1;
         this.images=images;
     }
     public String getIndizi(int numeroIndizio) {
         return indizi[numeroIndizio];
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     public String getNextIndizio(){
-        if (this.level<3){
+        if (this.level<2){
             level++;
-            return indizi[level-1];
+            return indizi[level];
         }
         return null;
     }

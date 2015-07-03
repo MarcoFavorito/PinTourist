@@ -12,15 +12,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +55,7 @@ public class MapsActivity extends FragmentActivity {
     //Dialog per i popup
     public static Dialog dialogIndizi;
     public static Dialog dialogSfida;
+    public static Dialog dialogGestioneIndizi;
 
     //___________________________________
     //Meccanica
@@ -121,7 +127,7 @@ public class MapsActivity extends FragmentActivity {
         bottoneIndizi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupPopupIndizi();
+                setupPopupGestioneIndizi();
             }
         });
 
@@ -274,7 +280,7 @@ public class MapsActivity extends FragmentActivity {
 
         }
 
-        
+
     }
 
 //FINE ELEMENTI PER IL MENU LATERALE
@@ -309,7 +315,7 @@ public class MapsActivity extends FragmentActivity {
                     Toast.makeText(MapsActivity.this, "You have selected the Pin with id: ", Toast.LENGTH_LONG).show();
                     suggeritore.setText(R.string.arrivaAlPin);
                     gamePhase=GamePhase.PIN_DISCOVERING;
-                    setupPopupIndizi();
+                    setupPopupIndizi(mPinTarget);
                 }
                 else if (gamePhase==GamePhase.PIN_DISCOVERING){
                     if (!MapsActivity.mPinTarget.getPinMarker().equals(marker) ){
@@ -332,7 +338,7 @@ public class MapsActivity extends FragmentActivity {
 
     //_________________________________________________________
     //setup dei popup (che fa pure rima :D )
-    public void setupPopupIndizi(){
+    public void setupPopupIndizi(final Pin pin){
         MapsActivity.dialogIndizi= new Dialog(MapsActivity.this);
 
         // Evito la presenza della barra del titolo nella mia dialog
@@ -342,8 +348,11 @@ public class MapsActivity extends FragmentActivity {
         // Carico il layout della dialog al suo intenro
 
         MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi);
-        TextView t= (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
 
+        TextView titoloIndizio= (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
+        titoloIndizio.setText("Indizio zona San Lorenzo, Pin id: " + (pin.getPinId() + 1));
+        TextView descrizioneIndizio = (TextView)dialogIndizi.findViewById(R.id.popupIndizioDescrizione);
+        descrizioneIndizio.setText(pin.getIndizi().getNextIndizio());
 
         // Nel caso fosse previsto un titolo questo sarebbe il codice da
         // utilizzare eliminando quello visto poco sopra per evitarlo
@@ -361,6 +370,15 @@ public class MapsActivity extends FragmentActivity {
             public void onClick(View v) {
                 MapsActivity.dialogIndizi.dismiss();
 
+            }
+        });
+
+        Button btnAltroIndizio = (Button) dialogIndizi.findViewById(R.id.popupIndiziBtnAltroIndizio);
+        btnAltroIndizio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogIndizi.dismiss();
+                setupPopupIndizi(pin);
             }
         });
         // Faccio comparire la dialog
@@ -400,27 +418,53 @@ public class MapsActivity extends FragmentActivity {
 
     public void setupPopupSfida(){
         MapsActivity.dialogSfida= new Dialog(MapsActivity.this);
-
-        // Evito la presenza della barra del titolo nella mia dialog
         MapsActivity.dialogSfida.getWindow();
         MapsActivity.dialogSfida.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        // Carico il layout della dialog al suo intenro
-        MapsActivity.dialogSfida.setContentView(R.layout.popup_sfida
-        );
-
-        // Nel caso fosse previsto un titolo questo sarebbe il codice da
-        // utilizzare eliminando quello visto poco sopra per evitarlo
-        //dialog.setTitle("Testo per il titolo");
+        MapsActivity.dialogSfida.setContentView(R.layout.popup_sfida);
         MapsActivity.dialogSfida.setCancelable(false);
         dialogSfida.setCanceledOnTouchOutside(false);
-
-        // Qui potrei aggiungere eventuali altre impostazioni per la dialog
-        // ...
-
-        //Gestisco il bottone di chiusura della dialog (quello in alto a destra)
-
-        // Faccio comparire la dialog
         MapsActivity.dialogSfida.show();
     }
+
+    public void setupPopupGestioneIndizi(){
+        MapsActivity.dialogGestioneIndizi= new Dialog(MapsActivity.this);
+        MapsActivity.dialogGestioneIndizi.getWindow();
+        MapsActivity.dialogGestioneIndizi.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        MapsActivity.dialogGestioneIndizi.setCancelable(false);
+        dialogGestioneIndizi.setCanceledOnTouchOutside(false);
+        MapsActivity.dialogGestioneIndizi.setContentView(R.layout.gestione_indizi);
+
+        TableLayout tabellaListaPin=(TableLayout) dialogGestioneIndizi.findViewById(R.id.gestioneIndizi_tabellaListaPin);
+        TableRow rigaPin;
+        TextView nomePin;
+        for (Pin p: Utility.ZonaSanLorenzo.getPins_CurrentZone()){
+            if (p.getIndizi()==null) continue;
+            if (p.getIndizi().getLevel()==-1){
+                rigaPin=new TableRow(this);
+                nomePin=new TextView(this);
+                nomePin.setText(p.getNome());
+                nomePin.setTextSize(20);
+                nomePin.setTextAppearance(this, android.R.style.TextAppearance_Large);
+                nomePin.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                rigaPin.addView(nomePin);
+                rigaPin.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                rigaPin.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView testoIndizio;
+                        TableRow rigaIndizio;
+                        TableLayout tabellaListaIndizi = (TableLayout) dialogGestioneIndizi.findViewById(R.id.gestioneIndizi_tabellaListaIndizi);
+
+                    }
+                });
+                tabellaListaPin.addView(rigaPin);
+
+            }
+        }
+
+        //dialogGestioneIndizi.getCurrentFocus()
+        dialogGestioneIndizi.show();
+    }
+
+
 }

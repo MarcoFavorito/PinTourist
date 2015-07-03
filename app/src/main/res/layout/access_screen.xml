@@ -40,7 +40,7 @@
         android:clickable="true"
         android:layout_marginRight="100dp"
         android:layout_marginBottom="40dp"
-        style="?android:borderlessButtonStyle"/>
+        />
 
     <ImageButton
         android:layout_width="139dp"
@@ -56,6 +56,6 @@
         android:layout_marginBottom="40dp"
         android:layout_marginLeft="100dp"
         android:focusable="false"
-        style="?android:borderlessButtonStyle"/>
+        />
 
 </FrameLayout>

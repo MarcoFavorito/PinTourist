@@ -6,15 +6,28 @@
     android:layout_height="@dimen/gestione_indizi_height"
     android:background="#15EE44"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gestione Indizi"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:id="@+id/gestioneIndizi.titolo"
+        android:textStyle="bold"
+        android:textSize="@dimen/gestione_indizi_title_size" />
+
     <LinearLayout
+
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
     <ScrollView
         android:layout_width="177dp"
         android:layout_height="match_parent"
-        android:id="@+id/gestioneIndizi.listaPin" >
+        android:id="@+id/gestioneIndizi.listaPin">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -37,4 +50,5 @@
     </ScrollView>
 
         </LinearLayout>
+
 </LinearLayout>

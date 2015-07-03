@@ -65,9 +65,14 @@ public class Utility {
     //Pin_______________________________________________________________________________________________________________________
     static final Context context = MapsActivity.getAppContext();
     static Resources myR = context.getResources();//Resources.getSystem();
-    static final Pin Verano = new Pin (context.getString(R.string.verano), 41.902932, 12.525009,
+
+    static final Indizio indizioVerano= new Indizio(new String[]{
+            "E' molto affollato, ma non c'e' anima viva.",
+            "E' una città eterna nella città eterna.",
+            "Prende il nome dalla gens senatoria dei Verani."
+    });
+    static final Pin Verano = new Pin (context.getString(R.string.verano), 41.902932, 12.525009,indizioVerano,null);
           // new Indizio(myR.getStringArray(R.array.indiziVerano)));
-            null,null);
     static final Pin Minerva = new Pin (context.getString(R.string.minerva),41.902901, 12.514556);
     static final Pin BasilicaSanLorenzo = new Pin (context.getString(R.string.basilicaSanLorenzo),41.9025562,12.5207542);
 

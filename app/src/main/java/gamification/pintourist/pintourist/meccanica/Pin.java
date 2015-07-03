@@ -25,6 +25,8 @@ public class Pin {
     private Indizio indizi;
     private Sfida sfida;
     private Location pinMarkerLocation;
+    private int pinId;
+    private static int autoincrementalId=0;
 
 
 
@@ -35,6 +37,7 @@ public class Pin {
         this.nome = nome;
         this.indizi = lista_indizi;
         this.sfida=sfida;
+        this.pinId= autoincrementalId++;
     }
 
     public Pin(String nome,MarkerOptions markerOptions, Indizio lista_indizi, Sfida sfida) {
@@ -48,6 +51,8 @@ public class Pin {
         this.pinMarkerLocation=new Location("gps");
         this.pinMarkerLocation.setLongitude(markerOptions.getPosition().longitude);
         this.pinMarkerLocation.setLatitude(markerOptions.getPosition().latitude);
+        this.pinId= autoincrementalId++;
+
         //___
 
     }
@@ -59,6 +64,8 @@ public class Pin {
         pinMarkerOptions = new MarkerOptions().position(new LatLng(Lat, Long)).title("Scoprimi");
         conquistato = false;
         this.nome = nome;
+        this.pinId= autoincrementalId++;
+
     }
 
     public String getNome() {
@@ -93,6 +100,10 @@ public class Pin {
     public Location getPinMarkerLocation() {
         return pinMarkerLocation;
     }
+    public int getPinId() {
+        return pinId;
+    }
+
     //END get methods
     //__________________________________________________________________________
     //set methods
