@@ -1,12 +1,19 @@
 package gamification.pintourist.pintourist.meccanica;
 
 
+import android.content.Intent;
 import android.location.Location;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import gamification.pintourist.pintourist.AccessScreenActivity;
 import gamification.pintourist.pintourist.MapsActivity;
 
 
@@ -14,13 +21,15 @@ import gamification.pintourist.pintourist.MapsActivity;
  * Created by Daniel on 04/06/2015.
  */
 public class Pin {
-
+    public static int indexColorAnimation=0;
+    public boolean isAnimationSet;
 
     private Zona belongingZone;
     private Marker pinMarker;
     private MarkerOptions pinMarkerOptions;
     private boolean conquistato;
     private boolean isObbiettivo;
+    private boolean isIlluminato;
     private String nome;
     private Indizio indizi;
     private Sfida sfida;
@@ -38,6 +47,9 @@ public class Pin {
         this.indizi = lista_indizi;
         this.sfida=sfida;
         this.pinId= autoincrementalId++;
+        this.isIlluminato=false;
+        isAnimationSet=false;
+
     }
 
     public Pin(String nome,MarkerOptions markerOptions, Indizio lista_indizi, Sfida sfida) {
@@ -52,6 +64,9 @@ public class Pin {
         this.pinMarkerLocation.setLongitude(markerOptions.getPosition().longitude);
         this.pinMarkerLocation.setLatitude(markerOptions.getPosition().latitude);
         this.pinId= autoincrementalId++;
+        this.isIlluminato=false;
+        isAnimationSet=false;
+
 
         //___
 
@@ -65,6 +80,9 @@ public class Pin {
         conquistato = false;
         this.nome = nome;
         this.pinId= autoincrementalId++;
+        this.isIlluminato=false;
+        isAnimationSet=false;
+
 
     }
 
@@ -107,16 +125,14 @@ public class Pin {
     //END get methods
     //__________________________________________________________________________
     //set methods
-    public void setConquistato() {
-        this.conquistato = true;
-    }
-    public void setObbiettivo() {
-        this.isObbiettivo = true;
+    public void setObbiettivo(boolean b) {
+        this.isObbiettivo = b;
     }
     public void setBelongingZone(Zona belongingZone) {
         this.belongingZone = belongingZone;
     }
     public void setConquistato(boolean conquistato) {
+        this.getPinMarker().setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
         this.conquistato = conquistato;
     }
     public void setIndizi(Indizio indizi) {
@@ -168,10 +184,36 @@ public class Pin {
             //Toast.makeText(MapsActivity.getAppContext(), "Illuminato", Toast.LENGTH_LONG).show();
 
             if (avatarLocation.distanceTo(pinTargetLocation) < Utility.MIN_DSTANCE) {
+                this.isIlluminato=true;
+                //if (!isAnimationSet) setAnimazione(this.pinMarker);
                 return true;
             }
-            else return false;
+            else {
+                this.isIlluminato=false;
+                return false;
+            }
         }
+        this.isIlluminato=false;
         return false;
     }
+
+    public void setAnimazione(final Marker marker){
+        if (this.isIlluminato){
+            TimerTask setIconIndex = new TimerTask() {
+                @Override
+                public void run() {
+                    MapsActivity.getPinTarget().getPinMarker().setIcon(BitmapDescriptorFactory.defaultMarker(Utility.iconArray[indexColorAnimation]));
+                    setAnimazione(MapsActivity.getPinTarget().getPinMarker());
+                }
+            };
+            indexColorAnimation=(indexColorAnimation++)%Utility.iconArray.length;
+            Timer timer = new Timer();
+            timer.schedule(setIconIndex, 1000);
+        }
+        else{
+            isAnimationSet=false;
+        }
+
+    }
+
 }

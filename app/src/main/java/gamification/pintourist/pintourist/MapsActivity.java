@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -56,6 +57,7 @@ public class MapsActivity extends FragmentActivity {
     public static Dialog dialogIndizi;
     public static Dialog dialogSfida;
     public static Dialog dialogGestioneIndizi;
+    public static Dialog dialogFeedback;
 
     //___________________________________
     //Meccanica
@@ -307,16 +309,18 @@ public class MapsActivity extends FragmentActivity {
                 if (!marker.equals(mAvatar.getAvatarMarker())) {
                     if (gamePhase == GamePhase.PIN_CHOICE) {
                         for (Pin p : Utility.ZonaSanLorenzo.getPins_CurrentZone()) {
-                            if (p.getPinMarker().equals(marker)) {
+                            if (p.getPinMarker().equals(marker) && !p.getIsConquistato()) {
                                 MapsActivity.mPinTarget = p;
                             }
                         }
-                        MapsActivity.mPinTarget.getPinMarker().setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                        //Utility.markers.get(markerId);
-                        Toast.makeText(MapsActivity.this, "You have selected the Pin with id: ", Toast.LENGTH_LONG).show();
-                        suggeritore.setText(R.string.arrivaAlPin);
-                        gamePhase = GamePhase.PIN_DISCOVERING;
-                        setupPopupIndizi(mPinTarget);
+                        if (mPinTarget!=null) {
+                            MapsActivity.mPinTarget.getPinMarker().setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                            //Utility.markers.get(markerId);
+                            Toast.makeText(MapsActivity.this, "You have selected the Pin with id: ", Toast.LENGTH_LONG).show();
+                            suggeritore.setText(R.string.arrivaAlPin);
+                            gamePhase = GamePhase.PIN_DISCOVERING;
+                            setupPopupIndizi(mPinTarget);
+                        }
                     } else if (gamePhase == GamePhase.PIN_DISCOVERING) {
                         if (!MapsActivity.mPinTarget.getPinMarker().equals(marker)) {
                             //TODO: Immagine dialogo per confermare il cambio Pin Obiettivo: per ora non lo implementiamo
@@ -404,18 +408,17 @@ public class MapsActivity extends FragmentActivity {
     public void setupPopupSfidaPrimaSchermata(final Pin pin){
         MapsActivity.dialogSfida= new Dialog(MapsActivity.this);
 
-        // Evito la presenza della barra del titolo nella mia dialog
+
         MapsActivity.dialogSfida.getWindow();
         MapsActivity.dialogSfida.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // Carico il layout della dialog al suo intenro
         MapsActivity.dialogSfida.setContentView(R.layout.popup_sfida_prima_schermata);
 
-        // Nel caso fosse previsto un titolo questo sarebbe il codice da
-        // utilizzare eliminando quello visto poco sopra per evitarlo
-        //dialog.setTitle("Testo per il titolo");
+        //dialogSfida.setTitle("Testo per il titolo");
+        TextView titoloSfida = (TextView) dialogSfida.findViewById(R.id.popupSfidaPrimaSchermataTitolo);
+        titoloSfida.setText("Sfida zona San Lorenzo, Pin id: " + (pin.getPinId() + 1)+"\n"+pin.getNome());
 
-        MapsActivity.dialogSfida.setCancelable(false);
+        dialogSfida.setCancelable(false);
         dialogSfida.setCanceledOnTouchOutside(false);
         // Qui potrei aggiungere eventuali altre impostazioni per la dialog
         // ...
@@ -439,6 +442,15 @@ public class MapsActivity extends FragmentActivity {
         MapsActivity.dialogSfida.setContentView(R.layout.popup_sfida);
         MapsActivity.dialogSfida.setCancelable(false);
         dialogSfida.setCanceledOnTouchOutside(false);
+
+        TextView domandaSfida= (TextView) dialogSfida.findViewById(R.id.popupSfidaDomanda);
+        domandaSfida.setText(pin.getSfida().getNextDomanda().getQuestion());
+        ImageView immagineSfida = (ImageView) dialogSfida.findViewById(R.id.popupSfidaImmagine);
+        immagineSfida.setImageResource(pin.getSfida().getCurrentDomanda().getImage());
+
+        setupBottoniRisposta(pin.getSfida().getCurrentDomanda(), dialogSfida, pin.getSfida(), pin);
+
+
         MapsActivity.dialogSfida.show();
     }
 
@@ -476,6 +488,7 @@ public class MapsActivity extends FragmentActivity {
                 rigaPin.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         btnAltroIndizio.setEnabled(true);
                         btnAltroIndizio.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -556,5 +569,78 @@ public class MapsActivity extends FragmentActivity {
         MapsActivity.dialogIndizi.show();
     }
 
+    public void setupBottoniRisposta(final Domanda q,final Dialog d, Sfida s, final Pin pin){
+        Button btn1= (Button) d.findViewById(R.id.risposta1);
+        Button btn2= (Button) d.findViewById(R.id.risposta2);
+        Button btn3= (Button) d.findViewById(R.id.risposta3);
+        Button btn4= (Button) d.findViewById(R.id.risposta4);
+        Button[] array= new Button[]{
+                btn1,btn2,btn3,btn4
+        };
+        for (int i=0;i<array.length;i++){
+            final int aux=i;
+            array[i].setText(q.getPossibleAnswers()[i]);
+            array[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (aux==q.getCorrectAnswerIndex()){
+                        //Hai risposto correttamente! feedback positivo
+                        d.dismiss();
+                        setupPopupFeedbackPositivo(pin);
 
+                    }
+                    else{
+                        //feedback negativo --> next sfida
+                        setupPopupFeedbackNegativo(pin);
+                    }
+                }
+            });
+        }
+    }
+
+    public void setupPopupFeedbackPositivo(Pin pin){
+        dialogFeedback= new Dialog(MapsActivity.this);
+        dialogFeedback.getWindow();
+        dialogFeedback.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogFeedback.setContentView(R.layout.feedback_positivo);
+        dialogFeedback.setCancelable(false);
+        dialogFeedback.setCanceledOnTouchOutside(false);
+
+        pin.setConquistato(true);
+        MapsActivity.gamePhase=GamePhase.PIN_CHOICE;
+        MapsActivity.mPinTarget=null;
+        suggeritore.setText(R.string.scegliPinPartenza);
+
+        Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogFeedback.dismiss();
+            }
+        });
+
+        dialogFeedback.show();
+    }
+
+    public void setupPopupFeedbackNegativo(final Pin pin){
+        dialogFeedback= new Dialog(MapsActivity.this);
+        dialogFeedback.getWindow();
+        dialogFeedback.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogFeedback.setContentView(R.layout.feedback_negativo);
+        dialogFeedback.setCancelable(false);
+        dialogFeedback.setCanceledOnTouchOutside(false);
+
+        
+
+        Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogFeedback.dismiss();
+                setupPopupSfida(pin);
+            }
+        });
+
+        dialogFeedback.show();
+    }
 }

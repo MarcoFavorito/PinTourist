@@ -9,15 +9,17 @@
     <dimen name="image_popup_indizi_width">100dp</dimen>
     <dimen name="image_popup_indizi_height">100dp</dimen>
 
-    <dimen name="popup_indizi_width">600dp</dimen>
-    <dimen name="popup_indizi_height">400dp</dimen>
+    <dimen name="popup_indizi_width">500dp</dimen>
+    <dimen name="popup_indizi_height">300dp</dimen>
 
-    <dimen name="gestione_indizi_width">500dp</dimen>
-    <dimen name="gestione_indizi_height">300dp</dimen>
+    <dimen name="gestione_indizi_width">1000dp</dimen>
+    <dimen name="gestione_indizi_height">600dp</dimen>
     <dimen name="gestione_indizi_title_size">30dp</dimen>
 
 
     <!--dimensioni popupSfida-->
-    <dimen name="popup_sfida_width">400dp</dimen>
-    <dimen name="popup_sfida_height">200dp</dimen>
+    <dimen name="popup_sfida_width">800dp</dimen>
+    <dimen name="popup_sfida_height">600dp</dimen>
+    <dimen name="popup_sfida_buttons_width">300dp</dimen>
+
 </resources>

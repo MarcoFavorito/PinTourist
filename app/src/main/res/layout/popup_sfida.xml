@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/popup_sfida_width"
     android:layout_height="@dimen/popup_sfida_height"
+    android:orientation="vertical"
     android:background="#15EE44">
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/container"
-        android:layout_margin="10dp"
-    >
-    <TableRow
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="126dp"
+        android:weightSum="1">
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             >
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Sfida zona San Lorenzo Pin 3"
-        android:id="@+id/popupSfidaTitolo"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        />
-        </TableRow>
-        <TableRow
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:text="Testo domanda 1"
+            android:id="@+id/popupSfidaDomanda"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.80" />
+
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
-            <TextView
-                android:layout_width="@dimen/popup_sfida_width"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Testo domanda 1"
-                android:id="@+id/popupSfidaDomanda"
-                android:textSize="20dp"
-                />
-        </TableRow>
-    </TableLayout>
+            android:layout_height="50dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="50 PT"
+            android:id="@+id/popupSfidaTextPunteggio"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/container"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:weightSum="1">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/popupSfidaImmagine"
+            android:src="@drawable/trilussa"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="0.5">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="right"
+            android:layout_margin="5dp"
+            android:weightSum="1">
             <Button
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="0.25"
                 android:text="New Button"
                 android:id="@+id/risposta1"
                 />
@@ -59,29 +67,30 @@
                 android:layout_height="match_parent"
                 android:text="New Button"
                 android:id="@+id/risposta2"
+                android:layout_weight="0.25"
                 />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="0.5">
+
             <Button
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="New Button"
                 android:id="@+id/risposta3"
+                android:layout_weight="0.25"
                 />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="New Button"
                 android:id="@+id/risposta4"
+                android:layout_weight="0.25"
                 />
         </LinearLayout>
 
     </LinearLayout>
-</RelativeLayout>
+
+
+</LinearLayout>
 
 <!--
     <GridLayout

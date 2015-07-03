@@ -3,6 +3,7 @@ package gamification.pintourist.pintourist.meccanica;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.PolygonOptions;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 
 import gamification.pintourist.pintourist.MapsActivity;
 import gamification.pintourist.pintourist.R;
-import gamification.pintourist.pintourist.meccanica.*;
 
 /*
 Resources.getSystem()
@@ -29,6 +29,15 @@ public class Utility {
     static final int MIN_DSTANCE=20;
     static ArrayList<Marker> markers=new ArrayList<Marker>();
     static Marker avatarMarker;
+    static float[] iconArray = {
+            BitmapDescriptorFactory.HUE_GREEN,
+            BitmapDescriptorFactory.HUE_CYAN,
+            BitmapDescriptorFactory.HUE_AZURE,
+            BitmapDescriptorFactory.HUE_MAGENTA,
+            BitmapDescriptorFactory.HUE_ORANGE,
+            BitmapDescriptorFactory.HUE_RED,
+            BitmapDescriptorFactory.HUE_YELLOW
+    };
     /*
     public static Thread animazione=new Thread(new Runnable() {
         @Override
@@ -59,19 +68,63 @@ public class Utility {
         }
     });
 */
-
-
-
-    //Pin_______________________________________________________________________________________________________________________
-    static final Context context = MapsActivity.getAppContext();
-    static Resources myR = context.getResources();//Resources.getSystem();
-
+//Indizi_________________________________________________________________________________________________
     static final Indizio indizioVerano= new Indizio(new String[]{
             "E' molto affollato, ma non c'e' anima viva.",
             "E' una città eterna nella città eterna.",
             "Prende il nome dalla gens senatoria dei Verani."
     });
-    static final Pin Verano = new Pin (context.getString(R.string.verano), 41.902932, 12.525009,indizioVerano,null);
+
+    //Sfide_________________________________________________________________________________________________
+
+
+    static final Domanda domandaHardTrilussa=new Domanda(
+            "Rampa Caracciolo. Primo tornante. Roma 1871, Roma 1950.",
+            new String[]{"Trilussa",
+                         "Giuseppe Gioacchino Belli",
+                        "Giacomo Puccini",
+                        "Vittorio Gassman"
+                        },
+            0,
+            R.drawable.trilussa);
+
+
+    static final Domanda domandaMedium=new Domanda(
+            "Perchè è stato costruito il Cimitero monumentale del Verano?",
+            new String[]{"Per rispettare l'editto napoleonico che imponeva le sepolture fuori dalle città",
+                    "In seguito ad una gravissima ondata di peste che colpì Roma",
+                    "Per celebrare la morte del Re e conferirgli adeguata sepolture",
+                    "Per volontà del papa Pio XI"
+            },
+            0,
+            R.drawable.entrata_verano);
+
+
+    static final Domanda domandaEasy=new Domanda(
+            "Completa l'iscrizione dell'entrata: FILI IN MORTUUM PRODUC",
+            new String[]{"DEFUNCTIS",
+                        "LACRYMAS ",
+                        "MORTUI",
+                        "TUBA"
+            },
+            1,
+            R.drawable.entrata_verano);
+
+
+    static final Sfida sfidaVerano=new Sfida(
+            new Domanda[]{
+                    domandaHardTrilussa,
+                    domandaMedium,
+                    domandaEasy
+            },
+            null
+    );
+
+    //Pin_______________________________________________________________________________________________________________________
+    static final Context context = MapsActivity.getAppContext();
+    static Resources myR = context.getResources();//Resources.getSystem();
+
+    static final Pin Verano = new Pin (context.getString(R.string.verano), 41.902932, 12.525009,indizioVerano,sfidaVerano);
           // new Indizio(myR.getStringArray(R.array.indiziVerano)));
     static final Pin Minerva = new Pin (context.getString(R.string.minerva),41.902901, 12.514556);
     static final Pin BasilicaSanLorenzo = new Pin (context.getString(R.string.basilicaSanLorenzo),41.9025562,12.5207542);
