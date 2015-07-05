@@ -71,7 +71,7 @@ public class Utility {
 //Indizi_________________________________________________________________________________________________
     static final Indizio indizioVerano= new Indizio(new String[]{
             "E' molto affollato, ma non c'e' anima viva.",
-            "E' una città eterna nella città eterna.",
+            "E' una cittï¿½ eterna nella cittï¿½ eterna.",
             "Prende il nome dalla gens senatoria dei Verani."
     });
 
@@ -90,11 +90,11 @@ public class Utility {
 
 
     static final Domanda domandaMedium=new Domanda(
-            "Perchè è stato costruito il Cimitero monumentale del Verano?",
-            new String[]{"Per rispettare l'editto napoleonico che imponeva le sepolture fuori dalle città",
-                    "In seguito ad una gravissima ondata di peste che colpì Roma",
+            "Perchï¿½ ï¿½ stato costruito il Cimitero monumentale del Verano?",
+            new String[]{"Per rispettare l'editto napoleonico che imponeva le sepolture fuori dalle cittï¿½",
+                    "In seguito ad una gravissima ondata di peste che colpï¿½ Roma",
                     "Per celebrare la morte del Re e conferirgli adeguata sepolture",
-                    "Per volontà del papa Pio XI"
+                    "Per volontï¿½ del papa Pio XI"
             },
             0,
             R.drawable.entrata_verano);
@@ -129,11 +129,13 @@ public class Utility {
     static final Pin Minerva = new Pin (context.getString(R.string.minerva),41.902901, 12.514556);
     static final Pin BasilicaSanLorenzo = new Pin (context.getString(R.string.basilicaSanLorenzo),41.9025562,12.5207542);
 
+    static final Pin PosteSapienza = new Pin("Poste Sapienza", 41.8987969,12.5129701,R.drawable.pin_poste_piccola);
 
     static final Pin[] pinZonaSanLorenzo=new Pin[]{
             Verano,
             Minerva,
-            BasilicaSanLorenzo
+            BasilicaSanLorenzo,
+            PosteSapienza
     };
 
 

@@ -10,7 +10,7 @@
     tools:context=".SplashScreenActivity"
     >
 
-    <ImageView
+ <!--    <ImageView
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:src="@drawable/closseo_blur"
@@ -19,7 +19,7 @@
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         android:adjustViewBounds="false" />
-
+-->
     <ImageView
         android:layout_height="129dp"
         android:layout_width="360dp"
