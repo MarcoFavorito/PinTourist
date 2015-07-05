@@ -51,6 +51,7 @@ public class MapViewer {
                 .bearing(0)                // Sets the orientation of the camera to east
                 .build();                   // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
     }
 
     public void moveCameraTo(LatLng nPos, int nZoom){
