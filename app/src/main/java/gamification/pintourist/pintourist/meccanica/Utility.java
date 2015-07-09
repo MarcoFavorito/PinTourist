@@ -129,7 +129,7 @@ public class Utility {
     static final Pin Minerva = new Pin (context.getString(R.string.minerva),41.902901, 12.514556);
     static final Pin BasilicaSanLorenzo = new Pin (context.getString(R.string.basilicaSanLorenzo),41.9025562,12.5207542);
 
-    static final Pin PosteSapienza = new Pin("Poste Sapienza", 41.8987969,12.5129701,R.drawable.pin_poste_piccola);
+    static final Pin PosteSapienza = new Pin("Poste Sapienza", 41.8987969,12.5129701,R.drawable.poste);
 
     static final Pin[] pinZonaSanLorenzo=new Pin[]{
             Verano,
