@@ -3,11 +3,13 @@ package gamification.pintourist.pintourist;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import java.util.Map;
 
 import gamification.pintourist.pintourist.meccanica.Domanda;
+import gamification.pintourist.pintourist.meccanica.GamePhase;
 import gamification.pintourist.pintourist.meccanica.Indizio;
 import gamification.pintourist.pintourist.meccanica.Pin;
 import gamification.pintourist.pintourist.meccanica.Sfida;
@@ -119,12 +122,12 @@ public class PintouristPopups {
                         if (aux == q.getCorrectAnswerIndex()) {
                             //Hai risposto correttamente! feedback positivo
                             d.dismiss();
-                            //setupPopupFeedbackPositivo(pin);
+                            MapsActivity.setupPopupFeedbackPositivo(pin);
 
                         } else {
                             //feedback negativo --> next sfida
                             d.dismiss();
-                            //setupPopupFeedbackNegativo(pin);
+                            MapsActivity.setupPopupFeedbackNegativo(pin);
                         }
                     }
                 });
@@ -278,8 +281,10 @@ public class PintouristPopups {
 
         public PopupRiepilogoIndizi(Context context, Pin pin) {
             super(context);
-            this.pin = pin;
-            this.indizio = pin.getIndizi();
+            if (pin!=null && pin.getIndizi()!=null) {
+                this.pin = pin;
+                this.indizio = pin.getIndizi();
+            }
             setUp();
         }
 
@@ -288,7 +293,6 @@ public class PintouristPopups {
             funzioneBase(this);
             this.setContentView(R.layout.riepilogo_indizi);
             final Button btnAltroIndizio = (Button) this.findViewById(R.id.riepilogoIndiziBottoneAltroIndizio);
-            btnAltroIndizio.setEnabled(true);
             Button btnOk = (Button) this.findViewById(R.id.riepilogoIndiziBottoneOk);
             btnOk.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -305,8 +309,10 @@ public class PintouristPopups {
 
             TextView testoIndizio;
             TableRow rigaIndizio;
-            TableLayout tabellaListaIndizi = (TableLayout) MapsActivity.pintouristDialog.findViewById(R.id.gestioneIndizi_tabellaListaIndizi);
-            if (pin.getIndizi().getStringheIndizi() != null)
+            TableLayout tabellaListaIndizi = (TableLayout) this.findViewById(R.id.riepilogoIndiziTabellaListaIndizi);
+            if (pin!=null && pin.getIndizi().getStringheIndizi() != null) {
+                TextView titoloRiepilogoIndizi= (TextView)this.findViewById(R.id.riepilogoIndiziPinIndizio);
+                titoloRiepilogoIndizi.setText("Indizi del pin id: "+pin.getPinId()+", zona" + pin.getBelongingZone().getNome());
                 for (int index = 0; index <= pin.getIndizi().getLevel(); index++) {
                     final int indice_ausiliario = index;
                     pin.getIndizi().getStringheIndizi();
@@ -316,9 +322,10 @@ public class PintouristPopups {
                     testoIndizio.setText("Indizio " + (index + 1));
                     testoIndizio.setTextSize(30);
                     testoIndizio.setTextAppearance(MapsActivity.getAppContext(), android.R.style.TextAppearance_Large);
-                    testoIndizio.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    testoIndizio.setGravity(Gravity.CENTER_HORIZONTAL);
+                    testoIndizio.setPadding(20, 20, 20, 20);
                     rigaIndizio.addView(testoIndizio);
-                    rigaIndizio.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    rigaIndizio.setLayoutParams(new ViewGroup.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                     rigaIndizio.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -327,57 +334,123 @@ public class PintouristPopups {
                         }
                     });
                     tabellaListaIndizi.addView(rigaIndizio);
+                    btnAltroIndizio.setEnabled(true);
                 }
+            }
         }
     }
-
-
-
-
-
-
-
 
     public class PopupIndiziFromGestione extends Dialog implements MyPopup{
 
         public Pin pin;
         public Indizio indizio;
+        public int numIndizio;
 
-        public PopupIndiziFromGestione(Context context, Pin pin){
+        public PopupIndiziFromGestione(Context context, Pin pin, int numIndizio){
             super(context);
             this.pin=pin;
             this.indizio=pin.getIndizi();
+            this.numIndizio=numIndizio;
             setUp();
         }
 
 
         public void setUp(){
             funzioneBase(this);
-            this.setContentView(R.layout.popup_indizi);
-
-            TextView titoloIndizio = (TextView) this.findViewById(R.id.popupIndiziTitolo);
+            this.setContentView(R.layout.popup_indizi_from_gestione);
+            TextView titoloIndizio= (TextView) this.findViewById(R.id.popupIndiziTitolo);
             titoloIndizio.setText("Indizio zona San Lorenzo, Pin id: " + (pin.getPinId() + 1));
-            TextView descrizioneIndizio = (TextView) this.findViewById(R.id.popupIndizioDescrizione);
-            descrizioneIndizio.setText(pin.getIndizi().getNextIndizio());
+            TextView descrizioneIndizio = (TextView)this.findViewById(R.id.popupIndizioDescrizione);
+            descrizioneIndizio.setText(pin.getIndizi().getStringaIndizio(numIndizio));
 
+            this.setCancelable(false);
+            this.setCanceledOnTouchOutside(false);
             Button btnOk = (Button) this.findViewById(R.id.popupIndiziBtnOk);
             btnOk.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     dismiss();
-                }
-            });
-
-            Button btnAltroIndizio = (Button) this.findViewById(R.id.popupIndiziBtnAltroIndizio);
-            btnAltroIndizio.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismiss();
-                    MapsActivity.pintouristDialog=MapsActivity.pintouristPopups.new PopupIndizi(MapsActivity.getAppContext(),pin);
-                    MapsActivity.pintouristDialog.show();
+                    MapsActivity.setupPopupRiepilogoIndizi(pin);
                 }
             });
         }
-
     }
 
+    public class PopupFeedbackPositivo extends Dialog implements MyPopup {
+        public Pin pin;
+
+        public PopupFeedbackPositivo(Context context, Pin pin) {
+            super(context);
+            this.pin = pin;
+            setUp();
+        }
+
+        public void setUp() {
+            funzioneBase(this);
+            this.setContentView(R.layout.feedback_positivo);
+
+            pin.setConquistato(true);
+            MapsActivity.gamePhase= GamePhase.PIN_CHOICE;
+            MapsActivity.mPinTarget=null;
+            MapsActivity.suggeritore.setText(R.string.scegliPinPartenza);
+
+            Button btnOk = (Button) this.findViewById(R.id.popupFeedbackBtnAvanti);
+           btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+
+        }
+    }
+
+    public class PopupFeedbackNegativo extends Dialog implements MyPopup {
+        public Pin pin;
+
+        public PopupFeedbackNegativo(Context context, Pin pin) {
+            super(context);
+            this.pin = pin;
+            setUp();
+        }
+
+        public void setUp() {
+            funzioneBase(this);
+            this.setContentView(R.layout.feedback_negativo);
+
+
+            if (pin.getSfida().hasNextDomanda()){
+                TextView popupFeedbackNegativoMessaggio = (TextView) this.findViewById(R.id.popupFeedbackMessaggio);
+                popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai ancora "+ pin.getSfida().tentativiRimasti()+" tentativi. Premi sul tasto Ok per continuare");
+
+                Button btnOk = (Button) this.findViewById(R.id.popupFeedbackBtnAvanti);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+                        MapsActivity.setupPopupSfida(pin);
+                    }
+                });
+            }
+            else{
+                TextView popupFeedbackNegativoMessaggio = (TextView) this.findViewById(R.id.popupFeedbackMessaggio);
+                popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai esaurito tutti i tentativi rimasti.\nHai comunque conquistato il Pin. Premi sul tasto Ok per tornare sulla mappa");
+
+                Button btnOk = (Button) this.findViewById(R.id.popupFeedbackBtnAvanti);
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dismiss();
+
+                    }
+                });
+            }
+
+            pin.setConquistato(true);
+            MapsActivity.gamePhase=GamePhase.PIN_CHOICE;
+            MapsActivity.mPinTarget=null;
+            MapsActivity.suggeritore.setText(R.string.scegliPinPartenza);
+
+        }
+    }
+    
 }

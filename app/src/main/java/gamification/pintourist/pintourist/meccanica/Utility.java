@@ -129,11 +129,13 @@ public class Utility {
     static final Pin Minerva = new Pin (context.getString(R.string.minerva),41.902901, 12.514556);
     static final Pin BasilicaSanLorenzo = new Pin (context.getString(R.string.basilicaSanLorenzo),41.9025562,12.5207542);
 
+    static final Pin PosteSapienza = new Pin("Poste Sapienza", 41.8987969,12.5129701,R.drawable.poste);
 
     static final Pin[] pinZonaSanLorenzo=new Pin[]{
             Verano,
             Minerva,
-            BasilicaSanLorenzo
+            BasilicaSanLorenzo,
+            PosteSapienza
     };
 
 
@@ -167,25 +169,6 @@ public class Utility {
                 c. il colore del contorno (stroke color);
                 d. il colore di riempimento (fill color) ;
     */
-
-    //vecchia zona del Colosseo.
-    /*
-            //Colosseo --> 41.891232, 12.492266
-        //esempio zona vicino Colosseo
-
-                      double k= 0.000500;
-        double LatColosseo=41.891232;
-        double LngColosseo=12.492266;
-        LatLng[] VerticiZonaColosseo= {
-                new LatLng(LatColosseo - k, LngColosseo - k),
-                new LatLng(LatColosseo - k, LngColosseo + k),
-                new LatLng(LatColosseo + k, LngColosseo + k),
-                new LatLng(LatColosseo + k, LngColosseo - k)
-        };
-        mZonaColosseo=new Zona(0,null,VerticiZonaColosseo);
-     */
-
-    //Elementi Zona Rione Monti (id 0)
 
     static final LatLng[] verticiZonaRioneMonti= {
             new LatLng(41.89534541412743, 12.483129501342773),
@@ -272,16 +255,16 @@ public class Utility {
 
 
     public static final Zona ZonaSanLorenzo=new Zona(
+            "San Lorenzo",
             idZonaSanLorenzo,
             pinZonaSanLorenzo,
             polOpZonaSanLorenzo);
 
     public static final Zona ZonaRioneMonti=new Zona(
+            "Rione Monti",
             idZonaRioneMonti,
             null,
             polOpZonaRioneMonti);
-
-
 
 }
 

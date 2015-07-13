@@ -10,6 +10,7 @@ import gamification.pintourist.pintourist.MapsActivity;
  * Created by Daniel on 04/06/2015.
 */
 public class Zona {
+    private String nome;
     private int id;
     private Pin[] pins_CurrentZone;
     private LatLng[] vertices_of_perimeter;
@@ -18,12 +19,17 @@ public class Zona {
 
     //_______________________________________________________________________________________________________________
     //COSTRUTTORE CONSIGLIATO
-    public Zona(int id, Pin[] pins_CurrentZone, PolygonOptions mPolygonOptions) {
+    public Zona(String nome, int id, Pin[] pins_CurrentZone, PolygonOptions mPolygonOptions) {
+        this.nome=nome;
         this.id = id;
         this.pins_CurrentZone = pins_CurrentZone;
         this.mPolygonOptions = mPolygonOptions;
         this.vertices_of_perimeter = mPolygonOptions.getPoints().toArray(new LatLng[mPolygonOptions.getPoints().size()]);
         this.zone_Color = mPolygonOptions.getFillColor();
+        if (pins_CurrentZone!=null)
+        for (Pin p: pins_CurrentZone){
+            p.setBelongingZone(this);
+        }
     }
 //________________________________________________________________________________________________________________
 
@@ -67,7 +73,12 @@ public class Zona {
     public PolygonOptions getmPolygonOptions() {
         return this.mPolygonOptions;
     }
-//_______________________________________________________________________________________________________________
+
+    public String getNome() {
+        return nome;
+    }
+
+    //_______________________________________________________________________________________________________________
 
     //set methods
     public void setId(int id) {
@@ -91,6 +102,11 @@ public class Zona {
         this.setVertices_of_perimeter(mPolygonOptions.getPoints().toArray(new LatLng[mPolygonOptions.getPoints().size()]));
         this.setZone_Color(mPolygonOptions.getFillColor());
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     //_______________________________________________________________________________________________________________
 
     public void draw() {

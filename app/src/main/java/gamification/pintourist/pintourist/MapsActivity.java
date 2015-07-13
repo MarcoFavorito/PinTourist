@@ -55,14 +55,10 @@ public class MapsActivity extends FragmentActivity {
     */
     //Dialog per i popup
     public static Dialog pintouristDialog;
-    public static Dialog dialogIndizi;
-    public static Dialog dialogSfida;
-    public static Dialog dialogGestioneIndizi;
-    public static Dialog dialogFeedback;
 
     //___________________________________
     //Meccanica
-    private static Pin mPinTarget;
+    public static Pin mPinTarget;
     private static Avatar mAvatar;
 
 
@@ -340,9 +336,7 @@ public class MapsActivity extends FragmentActivity {
     }
 
 
-
-
-    //_________________________________________________________
+    //__________________________________________________________________________________________________________________
     //setup dei popup
     public static void setupPopupIndizi(final Pin pin) {
         if (pin.getIndizi().getLevel() == 2) {
@@ -367,112 +361,22 @@ public class MapsActivity extends FragmentActivity {
     }
 
     public static void setupPopupRiepilogoIndizi(Pin pin){
-        MapsActivity.pintouristDialog =pintouristPopups.new PopupGestioneIndizi(MapsActivity.getAppContext(), pin);
+        MapsActivity.pintouristDialog =pintouristPopups.new PopupRiepilogoIndizi(MapsActivity.getAppContext(), pin);
         MapsActivity.pintouristDialog.show();
     }
 
     public static void setupPopupIndiziFromGestione(final Pin pin, int numIndizio){
-        MapsActivity.dialogIndizi= new Dialog(MapsActivity.getAppContext());
-
-        // Evito la presenza della barra del titolo nella mia dialog
-        MapsActivity.dialogIndizi.getWindow();
-        MapsActivity.dialogIndizi.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        // Carico il layout della dialog al suo intenro
-
-        MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi_from_gestione);
-
-        TextView titoloIndizio= (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
-        titoloIndizio.setText("Indizio zona San Lorenzo, Pin id: " + (pin.getPinId() + 1));
-        TextView descrizioneIndizio = (TextView)dialogIndizi.findViewById(R.id.popupIndizioDescrizione);
-        descrizioneIndizio.setText(pin.getIndizi().getStringaIndizio(numIndizio));
-
-        // Nel caso fosse previsto un titolo questo sarebbe il codice da
-        // utilizzare eliminando quello visto poco sopra per evitarlo
-        //dialog.setTitle("Testo per il titolo");
-
-        MapsActivity.dialogIndizi.setCancelable(false);
-        dialogIndizi.setCanceledOnTouchOutside(false);
-
-        // Qui potrei aggiungere eventuali altre impostazioni per la dialog
-        // ...
-
-        //Gestisco il bottone di chiusura della dialog (quello in alto a destra)
-        Button btnOk = (Button) MapsActivity.dialogIndizi.findViewById(R.id.popupIndiziBtnOk);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MapsActivity.dialogIndizi.dismiss();
-                setupPopupRiepilogoIndizi(pin);
-            }
-        });
-        // Faccio comparire la dialog
-        MapsActivity.dialogIndizi.show();
+        MapsActivity.pintouristDialog =pintouristPopups.new PopupIndiziFromGestione(MapsActivity.getAppContext(), pin,numIndizio);
+        MapsActivity.pintouristDialog.show();
     }
 
     public static void setupPopupFeedbackPositivo(Pin pin){
-        dialogFeedback= new Dialog(MapsActivity.getAppContext());
-        dialogFeedback.getWindow();
-        dialogFeedback.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogFeedback.setContentView(R.layout.feedback_positivo);
-        dialogFeedback.setCancelable(false);
-        dialogFeedback.setCanceledOnTouchOutside(false);
-
-        pin.setConquistato(true);
-        MapsActivity.gamePhase=GamePhase.PIN_CHOICE;
-        MapsActivity.mPinTarget=null;
-        suggeritore.setText(R.string.scegliPinPartenza);
-
-        Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogFeedback.dismiss();
-            }
-        });
-
-        dialogFeedback.show();
+        MapsActivity.pintouristDialog =pintouristPopups.new PopupFeedbackPositivo(MapsActivity.getAppContext(), pin);
+        MapsActivity.pintouristDialog.show();
     }
 
     public static void setupPopupFeedbackNegativo(final Pin pin){
-        dialogFeedback= new Dialog(MapsActivity.getAppContext());
-        dialogFeedback.getWindow();
-        dialogFeedback.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogFeedback.setContentView(R.layout.feedback_negativo);
-        dialogFeedback.setCancelable(false);
-        dialogFeedback.setCanceledOnTouchOutside(false);
-
-        if (pin.getSfida().hasNextDomanda()){
-            TextView popupFeedbackNegativoMessaggio = (TextView) dialogFeedback.findViewById(R.id.popupFeedbackMessaggio);
-            popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai ancora "+ pin.getSfida().tentativiRimasti()+" tentativi. Premi sul tasto Ok per continuare");
-
-            Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
-            btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogFeedback.dismiss();
-                setupPopupSfida(pin);
-                }
-            });
-        }
-        else{
-            TextView popupFeedbackNegativoMessaggio = (TextView) dialogFeedback.findViewById(R.id.popupFeedbackMessaggio);
-            popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai esaurito tutti i tentativi rimasti.\nHai comunque conquistato il Pin. Premi sul tasto Ok per tornare sulla mappa");
-
-            Button btnOk = (Button) dialogFeedback.findViewById(R.id.popupFeedbackBtnAvanti);
-            btnOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogFeedback.dismiss();
-
-                }
-            });
-        }
-
-        pin.setConquistato(true);
-        MapsActivity.gamePhase=GamePhase.PIN_CHOICE;
-        MapsActivity.mPinTarget=null;
-        suggeritore.setText(R.string.scegliPinPartenza);
-
-        dialogFeedback.show();
+        MapsActivity.pintouristDialog =pintouristPopups.new PopupFeedbackNegativo(MapsActivity.getAppContext(), pin);
+        MapsActivity.pintouristDialog.show();
     }
 }
