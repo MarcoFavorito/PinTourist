@@ -42,6 +42,8 @@ public class SplashScreenActivity extends Activity {
 
                 Intent mainIntent = new Intent().setClass(
                         SplashScreenActivity.this, AccessScreenActivity.class);
+                mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(mainIntent);
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

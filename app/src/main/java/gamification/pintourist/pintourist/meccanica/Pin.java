@@ -1,10 +1,8 @@
 package gamification.pintourist.pintourist.meccanica;
 
 
-import android.content.Intent;
 import android.location.Location;
 
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -13,8 +11,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import gamification.pintourist.pintourist.AccessScreenActivity;
 import gamification.pintourist.pintourist.MapsActivity;
+import gamification.pintourist.pintourist.R;
 
 
 /**
@@ -35,21 +33,21 @@ public class Pin {
     private Sfida sfida;
     private Location pinMarkerLocation;
     private int pinId;
+
     private static int autoincrementalId=0;
 
 
 
     public Pin(String nome, double Lat, double Long, Indizio lista_indizi, Sfida sfida) {
-        pinMarkerOptions = new MarkerOptions().position(new LatLng(Lat, Long)).title("Scoprimi");
+        pinMarkerOptions = new MarkerOptions().position(new LatLng(Lat, Long));
         conquistato = false;
-        isObbiettivo=false;
+        isObbiettivo = false;
         this.nome = nome;
         this.indizi = lista_indizi;
-        this.sfida=sfida;
-        this.pinId= autoincrementalId++;
-        this.isIlluminato=false;
-        isAnimationSet=false;
-
+        this.sfida =sfida;
+        this.pinId = autoincrementalId++;
+        this.isIlluminato = false;
+        isAnimationSet = false;
     }
 
     public Pin(String nome,MarkerOptions markerOptions, Indizio lista_indizi, Sfida sfida) {
@@ -66,10 +64,6 @@ public class Pin {
         this.pinId= autoincrementalId++;
         this.isIlluminato=false;
         isAnimationSet=false;
-
-
-        //___
-
     }
 
 
@@ -82,8 +76,17 @@ public class Pin {
         this.pinId= autoincrementalId++;
         this.isIlluminato=false;
         isAnimationSet=false;
+    }
 
-
+    //costruttore Pin poste
+    public Pin(String nome, double Lat, double Long, int res) {
+        pinMarkerOptions = new MarkerOptions().position(new LatLng(Lat, Long)).icon(BitmapDescriptorFactory.fromResource(res));
+        conquistato = false;
+        isObbiettivo = false;
+        this.nome = nome;
+        this.pinId = autoincrementalId++;
+        this.isIlluminato = false;
+        isAnimationSet = false;
     }
 
     public String getNome() {
@@ -133,6 +136,10 @@ public class Pin {
     }
     public void setConquistato(boolean conquistato) {
         this.getPinMarker().setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+   /*     LatLng temp = this.getLatLng();
+        this.pinMarkerOptions = null;
+        pinMarkerOptions = new MarkerOptions().position(temp).icon(BitmapDescriptorFactory.fromResource(R.drawable.conquista_pin));
+    */
         this.conquistato = conquistato;
     }
     public void setIndizi(Indizio indizi) {
@@ -164,12 +171,6 @@ public class Pin {
     //END set methods
     //__________________________________________________________________________
 
-    /*
-        private static int generatoreRandom() {
-            Random r = new Random();
-            return r.nextInt(NUMERO_DOMANDE);
-        }
-    */
     public void addMarker(){
         this.pinMarker=MapsActivity.getmMapViewer().getmMap().addMarker(this.pinMarkerOptions);
         this.pinMarkerLocation=new Location("gps");
