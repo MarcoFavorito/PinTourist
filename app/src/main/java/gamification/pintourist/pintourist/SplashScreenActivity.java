@@ -43,7 +43,8 @@ public class SplashScreenActivity extends Activity {
                 Intent mainIntent = new Intent().setClass(
                         SplashScreenActivity.this, AccessScreenActivity.class);
                 startActivity(mainIntent);
-
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 // Close the activity so the user won't able to go back this
                 // activity pressing Back button
                 finish();

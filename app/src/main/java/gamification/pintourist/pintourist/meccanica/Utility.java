@@ -71,7 +71,7 @@ public class Utility {
 //Indizi_________________________________________________________________________________________________
     static final Indizio indizioVerano= new Indizio(new String[]{
             "E' molto affollato, ma non c'e' anima viva.",
-            "E' una città eterna nella città eterna.",
+            "E' una citt à eterna nella città eterna.",
             "Prende il nome dalla gens senatoria dei Verani."
     });
 

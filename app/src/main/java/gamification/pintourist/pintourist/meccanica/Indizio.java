@@ -10,6 +10,7 @@ public class Indizio {
     private String [] stringheIndizi;
     private int level;
     private Image[] images;
+
     public Indizio(String [] arrayIndizi){
         stringheIndizi = arrayIndizi;
         level=-1;

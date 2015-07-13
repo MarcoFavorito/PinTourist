@@ -54,6 +54,7 @@ public class MapsActivity extends FragmentActivity {
     private String[] menuItems;
     */
     //Dialog per i popup
+    public static Dialog pintouristDialog;
     public static Dialog dialogIndizi;
     public static Dialog dialogSfida;
     public static Dialog dialogGestioneIndizi;
@@ -66,7 +67,7 @@ public class MapsActivity extends FragmentActivity {
 
 
     public static GamePhase gamePhase=GamePhase.PIN_CHOICE;
-
+    public static PintouristPopups pintouristPopups= new PintouristPopups();
 
 
 
@@ -90,9 +91,9 @@ public class MapsActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_map);
 
-        this.context=getApplicationContext();
+        this.context=MapsActivity.this;
         this.suggeritore=(TextView) findViewById(R.id.suggeritore);
-
+/*
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // set a custom shadow that overlays the main content when the drawer
         // opens
@@ -120,7 +121,6 @@ public class MapsActivity extends FragmentActivity {
         Utility.ZonaRioneMonti.draw();
         Utility.ZonaSanLorenzo.draw();
 
-        startGame();
 
 
         ImageButton bottoneIndizi=(ImageButton) findViewById(R.id.bottoneIndizi);
@@ -129,7 +129,7 @@ public class MapsActivity extends FragmentActivity {
         bottoneIndizi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupPopupGestioneIndizi();
+                MapsActivity.setupPopupRiepilogoIndizi(getPinTarget());
             }
         });
 
@@ -140,7 +140,6 @@ public class MapsActivity extends FragmentActivity {
                 //dovrebbe aprire il menu laterale, ma non ci riesco...
             }
         });
-
         startGame();
     }
 
@@ -148,13 +147,13 @@ public class MapsActivity extends FragmentActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
+      //  mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
+       // mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -179,6 +178,7 @@ public class MapsActivity extends FragmentActivity {
 		 * The action bar home/up should open or close the drawer.
 		 * ActionBarDrawerToggle will take care of this.
 		 */
+
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -343,209 +343,36 @@ public class MapsActivity extends FragmentActivity {
 
 
     //_________________________________________________________
-    //setup dei popup (che fa pure rima :D )
-    public void setupPopupIndizi(final Pin pin){
-
-        MapsActivity.dialogIndizi= new Dialog(MapsActivity.this);
-
-        // Evito la presenza della barra del titolo nella mia dialog
-        MapsActivity.dialogIndizi.getWindow();
-        MapsActivity.dialogIndizi.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        MapsActivity.dialogIndizi.setCancelable(false);
-        dialogIndizi.setCanceledOnTouchOutside(false);
-        if (pin.getIndizi()==null){
-            MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi);
-            TextView titoloIndizio = (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
-            Button btnOk = (Button) MapsActivity.dialogIndizi.findViewById(R.id.popupIndiziBtnOk);
-            btnOk.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    MapsActivity.dialogIndizi.dismiss();
-
-                }
-            });
-            MapsActivity.dialogIndizi.show();
-            return;
-
+    //setup dei popup
+    public static void setupPopupIndizi(final Pin pin) {
+        if (pin.getIndizi().getLevel() == 2) {
+            MapsActivity.pintouristDialog =pintouristPopups.new PopupIndiziFineIndizi(MapsActivity.getAppContext(),pin);
+            MapsActivity.pintouristDialog.show();
         }
-        if (pin.getIndizi().getLevel()==2){
-            MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi_fine_indizi);
-            TextView titoloIndizio = (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
-            titoloIndizio.setText("Indizio zona San Lorenzo, Pin id: " + (pin.getPinId() + 1));
-            Button btnOk = (Button) MapsActivity.dialogIndizi.findViewById(R.id.popupIndiziFineIndiziBtnOk);
-            btnOk.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    MapsActivity.dialogIndizi.dismiss();
-                }
-            });
-        }
-        // Carico il layout della dialog al suo intenro
         else {
-            MapsActivity.dialogIndizi.setContentView(R.layout.popup_indizi);
 
-            TextView titoloIndizio = (TextView) dialogIndizi.findViewById(R.id.popupIndiziTitolo);
-            titoloIndizio.setText("Indizio zona San Lorenzo, Pin id: " + (pin.getPinId() + 1));
-            TextView descrizioneIndizio = (TextView) dialogIndizi.findViewById(R.id.popupIndizioDescrizione);
-            descrizioneIndizio.setText(pin.getIndizi().getNextIndizio());
-
-            // Nel caso fosse previsto un titolo questo sarebbe il codice da
-            // utilizzare eliminando quello visto poco sopra per evitarlo
-            //dialog.setTitle("Testo per il titolo");
-
-
-
-            // Qui potrei aggiungere eventuali altre impostazioni per la dialog
-            Button btnOk = (Button) MapsActivity.dialogIndizi.findViewById(R.id.popupIndiziBtnOk);
-            btnOk.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    MapsActivity.dialogIndizi.dismiss();
-
-                }
-            });
-
-            //Gestisco il bottone di chiusura della dialog (quello in alto a destra)
-
-
-            Button btnAltroIndizio = (Button) dialogIndizi.findViewById(R.id.popupIndiziBtnAltroIndizio);
-            btnAltroIndizio.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialogIndizi.dismiss();
-                    setupPopupIndizi(pin);
-                }
-            });
+            MapsActivity.pintouristDialog= pintouristPopups.new PopupIndizi(MapsActivity.getAppContext(),pin);
+            MapsActivity.pintouristDialog.show();
         }
-        // Faccio comparire la dialog
-        MapsActivity.dialogIndizi.show();
     }
 
-    public void setupPopupSfidaPrimaSchermata(final Pin pin){
-        MapsActivity.dialogSfida= new Dialog(MapsActivity.this);
-
-
-        MapsActivity.dialogSfida.getWindow();
-        MapsActivity.dialogSfida.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        MapsActivity.dialogSfida.setContentView(R.layout.popup_sfida_prima_schermata);
-
-        //dialogSfida.setTitle("Testo per il titolo");
-        TextView titoloSfida = (TextView) dialogSfida.findViewById(R.id.popupSfidaPrimaSchermataTitolo);
-        titoloSfida.setText("Sfida zona San Lorenzo, Pin id: " + (pin.getPinId() + 1)+"\n"+pin.getNome());
-
-        dialogSfida.setCancelable(false);
-        dialogSfida.setCanceledOnTouchOutside(false);
-        // Qui potrei aggiungere eventuali altre impostazioni per la dialog
-        // ...
-
-        //Gestisco il bottone di chiusura della dialog (quello in alto a destra)
-        Button btnOk = (Button) MapsActivity.dialogSfida.findViewById(R.id.popupSfidaPrimaSchermataBtnAvanti);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MapsActivity.dialogSfida.dismiss();
-                setupPopupSfida(pin);
-            }
-        });
-        // Faccio comparire la dialog
-        MapsActivity.dialogSfida.show();
+    public static void setupPopupSfidaPrimaSchermata(final Pin pin){
+        MapsActivity.pintouristDialog=pintouristPopups.new PopupSfidaPrimaSchermata(MapsActivity.getAppContext(),pin);
+        MapsActivity.pintouristDialog.show();
     }
 
-    public void setupPopupSfida(final Pin pin){
-        MapsActivity.dialogSfida= new Dialog(MapsActivity.this);
-        MapsActivity.dialogSfida.getWindow();
-        MapsActivity.dialogSfida.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        MapsActivity.dialogSfida.setContentView(R.layout.popup_sfida);
-        MapsActivity.dialogSfida.setCancelable(false);
-        dialogSfida.setCanceledOnTouchOutside(false);
-
-        TextView domandaSfida= (TextView) dialogSfida.findViewById(R.id.popupSfidaDomanda);
-        domandaSfida.setText(pin.getSfida().getNextDomanda().getQuestion()); //ATTENZIONE! CHIAMATA A getNextDomanda IMPORTANTE! VA FATTA UNA SOLA VOLTA
-        ImageView immagineSfida = (ImageView) dialogSfida.findViewById(R.id.popupSfidaImmagine);
-        immagineSfida.setImageResource(pin.getSfida().getCurrentDomanda().getImage());
-
-        setupBottoniRisposta(pin.getSfida().getCurrentDomanda(), dialogSfida, pin.getSfida(), pin);
-
-
-        MapsActivity.dialogSfida.show();
+    public static void setupPopupSfida(final Pin pin){
+        MapsActivity.pintouristDialog = new PintouristPopups().new PopupSfida(MapsActivity.getAppContext(),pin);
+        MapsActivity.pintouristDialog.show();
     }
 
-    public void setupPopupGestioneIndizi(){
-        MapsActivity.dialogGestioneIndizi= new Dialog(MapsActivity.this);
-        MapsActivity.dialogGestioneIndizi.getWindow();
-        MapsActivity.dialogGestioneIndizi.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        MapsActivity.dialogGestioneIndizi.setCancelable(false);
-        dialogGestioneIndizi.setCanceledOnTouchOutside(false);
-        MapsActivity.dialogGestioneIndizi.setContentView(R.layout.gestione_indizi);
-
-
-        final Button btnAltroIndizio=(Button) MapsActivity.dialogGestioneIndizi.findViewById(R.id.gestioneIndiziBtnAltroIndizio);
-        Button btnOk = (Button) MapsActivity.dialogGestioneIndizi.findViewById(R.id.gestioneIndiziBtnOk);
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                MapsActivity.dialogGestioneIndizi.dismiss();
-            }
-        });
-
-        TableLayout tabellaListaPin=(TableLayout) dialogGestioneIndizi.findViewById(R.id.gestioneIndizi_tabellaListaPin);
-        TableRow rigaPin;
-        TextView nomePin;
-        for (final Pin p: Utility.ZonaSanLorenzo.getPins_CurrentZone()){
-            if (p.getIndizi()==null) continue;
-            if (p.getIndizi().getLevel()!=-1){
-                rigaPin=new TableRow(this);
-                nomePin=new TextView(this);
-                nomePin.setText("Zona San Lorenzo Pin " + p.getPinId());
-                nomePin.setTextSize(30);
-                nomePin.setTextAppearance(this, android.R.style.TextAppearance_Large);
-                nomePin.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                rigaPin.addView(nomePin);
-                rigaPin.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                rigaPin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        btnAltroIndizio.setEnabled(true);
-                        btnAltroIndizio.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialogGestioneIndizi.dismiss();
-                                setupPopupIndizi(p);
-                            }
-                        });
-                        TextView testoIndizio;
-                        TableRow rigaIndizio;
-                        TableLayout tabellaListaIndizi = (TableLayout) dialogGestioneIndizi.findViewById(R.id.gestioneIndizi_tabellaListaIndizi);
-                        if (p.getIndizi().getStringheIndizi() != null)
-                            for (int index = 0; index <= p.getIndizi().getLevel(); index++) {
-                                final int indice_ausiliario = index;
-                                p.getIndizi().getStringheIndizi();
-                                rigaIndizio = new TableRow(MapsActivity.getAppContext());
-                                testoIndizio = new TextView(MapsActivity.getAppContext());
-                                //testoIndizio.setText(p.getIndizi().getStringaIndizio(index));
-                                testoIndizio.setText("Indizio "+(index+1));
-                                testoIndizio.setTextSize(30);
-                                testoIndizio.setTextAppearance(MapsActivity.getAppContext(), android.R.style.TextAppearance_Large);
-                                testoIndizio.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                                rigaIndizio.addView(testoIndizio);
-                                rigaIndizio.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                                rigaIndizio.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialogGestioneIndizi.dismiss();
-                                        setupPopupIndiziFromGestione(p, indice_ausiliario);
-                                    }
-                                });
-                                tabellaListaIndizi.addView(rigaIndizio);
-                            }
-                    }
-
-                });
-                tabellaListaPin.addView(rigaPin);
-            }
-        }
-        dialogGestioneIndizi.show();
+    public static void setupPopupRiepilogoIndizi(Pin pin){
+        MapsActivity.pintouristDialog =pintouristPopups.new PopupGestioneIndizi(MapsActivity.getAppContext(), pin);
+        MapsActivity.pintouristDialog.show();
     }
 
-    public void setupPopupIndiziFromGestione(final Pin pin, int numIndizio){
-        MapsActivity.dialogIndizi= new Dialog(MapsActivity.this);
+    public static void setupPopupIndiziFromGestione(final Pin pin, int numIndizio){
+        MapsActivity.dialogIndizi= new Dialog(MapsActivity.getAppContext());
 
         // Evito la presenza della barra del titolo nella mia dialog
         MapsActivity.dialogIndizi.getWindow();
@@ -575,45 +402,15 @@ public class MapsActivity extends FragmentActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 MapsActivity.dialogIndizi.dismiss();
-                setupPopupGestioneIndizi();
+                setupPopupRiepilogoIndizi(pin);
             }
         });
         // Faccio comparire la dialog
         MapsActivity.dialogIndizi.show();
     }
 
-    public void setupBottoniRisposta(final Domanda q,final Dialog d, Sfida s, final Pin pin){
-        Button btn1= (Button) d.findViewById(R.id.risposta1);
-        Button btn2= (Button) d.findViewById(R.id.risposta2);
-        Button btn3= (Button) d.findViewById(R.id.risposta3);
-        Button btn4= (Button) d.findViewById(R.id.risposta4);
-        Button[] array= new Button[]{
-                btn1,btn2,btn3,btn4
-        };
-        for (int i=0;i<array.length;i++){
-            final int aux=i;
-            array[i].setText(q.getPossibleAnswers()[i]);
-            array[i].setTextSize(15);
-            array[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (aux == q.getCorrectAnswerIndex()) {
-                        //Hai risposto correttamente! feedback positivo
-                        d.dismiss();
-                        setupPopupFeedbackPositivo(pin);
-
-                    } else {
-                        //feedback negativo --> next sfida
-                        d.dismiss();
-                        setupPopupFeedbackNegativo(pin);
-                    }
-                }
-            });
-        }
-    }
-
-    public void setupPopupFeedbackPositivo(Pin pin){
-        dialogFeedback= new Dialog(MapsActivity.this);
+    public static void setupPopupFeedbackPositivo(Pin pin){
+        dialogFeedback= new Dialog(MapsActivity.getAppContext());
         dialogFeedback.getWindow();
         dialogFeedback.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogFeedback.setContentView(R.layout.feedback_positivo);
@@ -636,8 +433,8 @@ public class MapsActivity extends FragmentActivity {
         dialogFeedback.show();
     }
 
-    public void setupPopupFeedbackNegativo(final Pin pin){
-        dialogFeedback= new Dialog(MapsActivity.this);
+    public static void setupPopupFeedbackNegativo(final Pin pin){
+        dialogFeedback= new Dialog(MapsActivity.getAppContext());
         dialogFeedback.getWindow();
         dialogFeedback.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogFeedback.setContentView(R.layout.feedback_negativo);

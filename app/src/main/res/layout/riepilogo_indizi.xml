@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="@dimen/gestione_indizi_width"
+    android:layout_height="@dimen/gestione_indizi_height"
+    android:background="#15EE44"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Riepilogo Indizi"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:id="@+id/riepilogoIndiziTitolo"
+        android:textStyle="bold"
+        android:textSize="@dimen/gestione_indizi_title_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Indizi"
+        android:textSize="18dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/textView" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/riepilogoIndiziListaIndizi"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.80"
+            android:background="@color/blue" >
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/riepilogoIndiziTabellaListaIndizi" />
+        </ScrollView>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ok"
+                android:id="@+id/riepilogoIndiziBottoneOk" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Altro indizio"
+                android:id="@+id/riepilogoIndiziBottoneAltroIndizio"
+                android:enabled="false" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

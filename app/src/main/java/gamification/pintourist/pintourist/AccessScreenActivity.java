@@ -47,6 +47,9 @@ public class AccessScreenActivity extends Activity {
 
     public void access(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 }
