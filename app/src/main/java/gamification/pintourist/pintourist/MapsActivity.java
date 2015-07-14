@@ -288,7 +288,9 @@ public class MapsActivity extends FragmentActivity {
     public static Context getAppContext(){
         return  context;
     }
-    public static MapViewer getmMapViewer() {return mMapViewer;}
+    public static MapViewer getmMapViewer() {
+        return mMapViewer;
+    }
     public static Pin getPinTarget(){
         return mPinTarget;
     }
@@ -334,7 +336,6 @@ public class MapsActivity extends FragmentActivity {
             }
         });
     }
-
 
     //__________________________________________________________________________________________________________________
     //setup dei popup

@@ -22,4 +22,9 @@
     <dimen name="popup_sfida_height">600dp</dimen>
     <dimen name="popup_sfida_buttons_width">300dp</dimen>
 
+
+    <dimen name="NormalButtonWidth">150dp</dimen>
+    <dimen name="NormalButtonHeight">150dp</dimen>
+
+
 </resources>
