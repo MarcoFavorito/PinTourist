@@ -70,14 +70,14 @@
                         android:gravity="center"
                         android:layout_margin="20dp"
                         >
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Avanti"
-                        android:id="@+id/popupFeedbackBtnAvanti"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/pulsante_ok_indizi"
-                        />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avanti"
+                            android:id="@+id/popupFeedbackBtnAvanti"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/pulsante_ok_indizi"
+                            />
                     </FrameLayout>
                 </FrameLayout>
 

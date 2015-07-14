@@ -38,40 +38,11 @@ public class Utility {
             BitmapDescriptorFactory.HUE_RED,
             BitmapDescriptorFactory.HUE_YELLOW
     };
-    /*
-    public static Thread animazione=new Thread(new Runnable() {
-        @Override
-        public void run() {
-            float[] iconArray = {
-                    BitmapDescriptorFactory.HUE_AZURE,
-                    BitmapDescriptorFactory.HUE_CYAN,
-                    BitmapDescriptorFactory.HUE_GREEN,
-                    BitmapDescriptorFactory.HUE_MAGENTA,
-                    BitmapDescriptorFactory.HUE_ORANGE,
-                    BitmapDescriptorFactory.HUE_RED,
-                    BitmapDescriptorFactory.HUE_YELLOW
-            };
-                MapsActivity.mMarkerTarget.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
 
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                MapsActivity.mMarkerTarget.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-        }
-    });
-*/
 //Indizi_________________________________________________________________________________________________
     static final Indizio indizioVerano= new Indizio(new String[]{
             "E' molto affollato, ma non c'e' anima viva.",
-            "E' una citt à eterna nella città eterna.",
+            "E' una citta' eterna nella citta' eterna.",
             "Prende il nome dalla gens senatoria dei Verani."
     });
 

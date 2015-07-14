@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/popup_sfida_width"
-    android:layout_height="@dimen/popup_sfida_height"
-    android:background="#15EE44">
+    android:layout_width="@dimen/popup_indizi_width"
+    android:layout_height="@dimen/popup_indizi_height"
+    android:background="@color/white">
 
-<TableLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/container"
-    android:layout_margin="10dp"
-    >
-    <LinearLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        >
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:background="@color/toolbarColor"
         >
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Sfida zona San Lorenzo Pin 3"
             android:id="@+id/popupSfidaPrimaSchermataTitolo"
-            android:textSize="25dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textSize="30dp"
             android:textStyle="bold"
-            android:gravity="center_horizontal" />
+            android:padding="10dp"  />
+        </FrameLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,18 +38,24 @@
             android:id="@+id/popupSfidaPrimaSchermataMessaggio"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:gravity="center_horizontal" />
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    <FrameLayout
+        android:layout_width="@dimen/NormalButtonWidth"
+        android:layout_height="@dimen/NormalButtonHeight"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="bottom|center_horizontal"
+
+        >
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Avanti"
-                android:layout_marginTop="20dp"
                 android:id="@+id/popupSfidaPrimaSchermataBtnAvanti"
-                android:layout_gravity="center_horizontal"
+                android:background="@drawable/pulsante_ok_indizi"
                 />
-
-    </LinearLayout>
-</TableLayout>
+    </FrameLayout>
+    </FrameLayout>
 </RelativeLayout>
 
 

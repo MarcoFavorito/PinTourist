@@ -47,14 +47,13 @@
                 android:layout_width="@dimen/NormalButtonWidth"
                 android:layout_height="@dimen/NormalButtonHeight"
                 android:layout_marginBottom="20dp"
-                android:id="@+id/popupFeedbackBtnAvanti"
                 android:layout_gravity="bottom|center_horizontal"
                 >
-
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Avanti"
+                    android:id="@+id/popupFeedbackBtnAvanti"
                     android:background="@drawable/pulsante_ok_indizi"
                     />
             </FrameLayout>
