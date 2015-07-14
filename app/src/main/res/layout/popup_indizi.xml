@@ -64,12 +64,13 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             >
                 <Button
                     android:layout_width="@dimen/NormalButtonWidth"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/NormalButtonHeight"
                     android:id="@+id/popupIndiziBtnOk"
                     android:layout_gravity="start"
                     android:layout_marginLeft="20dp"
@@ -78,7 +79,7 @@
                     />
                 <Button
                     android:layout_width="@dimen/NormalButtonWidth"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/NormalButtonHeight"
                     android:id="@+id/popupIndiziBtnAltroIndizio"
                     android:layout_gravity="end"
                     android:layout_marginRight="20dp"

@@ -149,7 +149,7 @@ public class PintouristPopups {
         public void setUp() {
             funzioneBase(this);
             this.setContentView(R.layout.popup_indizi_fine_indizi);
-            TextView titoloIndizio = (TextView) this.findViewById(R.id.popupIndiziTitolo);
+            TextView titoloIndizio = (TextView) this.findViewById(R.id.popupIndiziFineIndiziTitolo);
             titoloIndizio.setText("Indizio zona San Lorenzo, Pin id: " + (pin.getPinId() + 1));
             Button btnOk = (Button) this.findViewById(R.id.popupIndiziFineIndiziBtnOk);
             btnOk.setOnClickListener(new View.OnClickListener() {
@@ -433,7 +433,7 @@ public class PintouristPopups {
             }
             else{
                 TextView popupFeedbackNegativoMessaggio = (TextView) this.findViewById(R.id.popupFeedbackMessaggio);
-                popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai esaurito tutti i tentativi rimasti.\nHai comunque conquistato il Pin. Premi sul tasto Ok per tornare sulla mappa");
+                popupFeedbackNegativoMessaggio.setText("Risposta Errata! Hai esaurito tutti i tentativi rimasti.\nHai conquistato il Pin senza ottenere nessun punteggio. Premi sul tasto Ok per tornare sulla mappa");
 
                 Button btnOk = (Button) this.findViewById(R.id.popupFeedbackBtnAvanti);
                 btnOk.setOnClickListener(new View.OnClickListener() {
