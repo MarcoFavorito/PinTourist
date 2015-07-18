@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">75dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--dimensioni popupIndizi-->
+    <dimen name="image_popup_indizi_width">100dp</dimen>
+    <dimen name="image_popup_indizi_height">100dp</dimen>
+
+    <dimen name="popup_indizi_width">500dp</dimen>
+    <dimen name="popup_indizi_height">300dp</dimen>
+
+    <dimen name="gestione_indizi_width">500dp</dimen>
+    <dimen name="gestione_indizi_height">300dp</dimen>
+    <dimen name="gestione_indizi_title_size">30dp</dimen>
+
+
+    <!--dimensioni popupSfida-->
+    <dimen name="popup_sfida_width">800dp</dimen>
+    <dimen name="popup_sfida_height">600dp</dimen>
+    <dimen name="popup_sfida_buttons_width">300dp</dimen>
+
+
+    <dimen name="NormalButtonWidth">150dp</dimen>
+    <dimen name="NormalButtonHeight">50dp</dimen>
+
+    <dimen name="DimenLogoSplash">50dp</dimen>
+
+</resources>

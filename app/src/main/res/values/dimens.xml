@@ -1,30 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbar_height">75dp</dimen>
-        <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="toolbar_height_xlarge">100dp</dimen>
+    <dimen name="toolbar_height_large">75dp</dimen>
+    <dimen name="toolbar_height_normal">50dp</dimen>
+    <dimen name="toolbar_height_small">75dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!--dimensioni popupIndizi-->
     <dimen name="image_popup_indizi_width">100dp</dimen>
+    <dimen name="image_popup_indizi_width_xlarge">100dp</dimen>
+    <dimen name="image_popup_indizi_width_large">100dp</dimen>
+    <dimen name="image_popup_indizi_width_normal">100dp</dimen>
+    <dimen name="image_popup_indizi_width_small">100dp</dimen>
+
     <dimen name="image_popup_indizi_height">100dp</dimen>
+    <dimen name="image_popup_indizi_height_xlarge">100dp</dimen>
+    <dimen name="image_popup_indizi_height_large">100dp</dimen>
+    <dimen name="image_popup_indizi_height_normal">100dp</dimen>
+    <dimen name="image_popup_indizi_height_small">100dp</dimen>
 
     <dimen name="popup_indizi_width">500dp</dimen>
-    <dimen name="popup_indizi_height">300dp</dimen>
+    <dimen name="popup_indizi_width_xlarge">500dp</dimen>
+    <dimen name="popup_indizi_width_large">500dp</dimen>
+    <dimen name="popup_indizi_width_normal">500dp</dimen>
+    <dimen name="popup_indizi_width_small">500dp</dimen>
 
-    <dimen name="gestione_indizi_width">1000dp</dimen>
-    <dimen name="gestione_indizi_height">600dp</dimen>
-    <dimen name="gestione_indizi_title_size">30dp</dimen>
+    <dimen name="popup_indizi_height">300dp</dimen>
+    <dimen name="popup_indizi_height_xlarge">300dp</dimen>
+    <dimen name="popup_indizi_height_large">300dp</dimen>
+    <dimen name="popup_indizi_height_normal">300dp</dimen>
+    <dimen name="popup_indizi_height_small">300dp</dimen>
+
+    <dimen name="gestione_indizi_width">500dp</dimen>
+    <dimen name="gestione_indizi_width_xlarge">500dp</dimen>
+    <dimen name="gestione_indizi_width_large">500dp</dimen>
+    <dimen name="gestione_indizi_width_normal">500dp</dimen>
+    <dimen name="gestione_indizi_width_small">500dp</dimen>
+
+    <dimen name="gestione_indizi_height">300dp</dimen>
+    <dimen name="gestione_indizi_height_xlarge">300dp</dimen>
+    <dimen name="gestione_indizi_height_large">300dp</dimen>
+    <dimen name="gestione_indizi_height_normal">300dp</dimen>
+    <dimen name="gestione_indizi_height_small">300dp</dimen>
+
+    <!-- title size per la maggior parte dei popup-->
+    <dimen name="titleTextSize">30dp</dimen>
+    <dimen name="titleTextSize_xlarge">30dp</dimen>
+    <dimen name="titleTextSize_large">30dp</dimen>
+    <dimen name="titleTextSize_normal">30dp</dimen>
+    <dimen name="titleTextSize_small">30dp</dimen>
+
+    <dimen name="normalTextSize">20dp</dimen>
+    <dimen name="normalTextSize_xlarge">20dp</dimen>
+    <dimen name="normalTextSize_large">20dp</dimen>
+    <dimen name="normalTextSize_normal">20dp</dimen>
+    <dimen name="normalTextSize_small">20dp</dimen>
+
+    <dimen name="buttonTextSize">15dp</dimen>
+    <dimen name="buttonTextSize_xlarge">15dp</dimen>
+    <dimen name="buttonTextSize_large">10dp</dimen>
+    <dimen name="buttonTextSize_normal">8dp</dimen>
+    <dimen name="buttonTextSize_small">15dp</dimen>
+<!--______________________________________________________-->
+
 
 
     <!--dimensioni popupSfida-->
     <dimen name="popup_sfida_width">800dp</dimen>
+    <dimen name="popup_sfida_width_xlarge">800dp</dimen>
+    <dimen name="popup_sfida_width_large">700dp</dimen>
+    <dimen name="popup_sfida_width_normal">550dp</dimen>
+    <dimen name="popup_sfida_width_small">800dp</dimen>
+
     <dimen name="popup_sfida_height">600dp</dimen>
+    <dimen name="popup_sfida_height_xlarge">600dp</dimen>
+    <dimen name="popup_sfida_height_large">400dp</dimen>
+    <dimen name="popup_sfida_height_normal">300dp</dimen>
+    <dimen name="popup_sfida_height_small">600dp</dimen>
+
     <dimen name="popup_sfida_buttons_width">300dp</dimen>
+    <dimen name="popup_sfida_buttons_width_xlarge">300dp</dimen>
+    <dimen name="popup_sfida_buttons_width_large">300dp</dimen>
+    <dimen name="popup_sfida_buttons_width_normal">300dp</dimen>
+    <dimen name="popup_sfida_buttons_width_small">300dp</dimen>
+
 
 
     <dimen name="NormalButtonWidth">150dp</dimen>
+    <dimen name="NormalButtonWidth_xlarge">150dp</dimen>
+    <dimen name="NormalButtonWidth_large">150dp</dimen>
+    <dimen name="NormalButtonWidth_normal">150dp</dimen>
+    <dimen name="NormalButtonWidth_small">150dp</dimen>
+
     <dimen name="NormalButtonHeight">50dp</dimen>
+    <dimen name="NormalButtonHeight_xlarge">50dp</dimen>
+    <dimen name="NormalButtonHeight_large">50dp</dimen>
+    <dimen name="NormalButtonHeight_normal">50dp</dimen>
+    <dimen name="NormalButtonHeight_small">50dp</dimen>
+
+
+    <dimen name="toolbarButtons_width">75dp</dimen>
+    <dimen name="toolbarButtons_width_xlarge">75dp</dimen>
+    <dimen name="toolbarButtons_width_large">75dp</dimen>
+    <dimen name="toolbarButtons_width_normal">75dp</dimen>
+    <dimen name="toolbarButtons_width_small">75dp</dimen>
+
 
 
 </resources>

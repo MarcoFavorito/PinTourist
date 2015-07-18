@@ -37,4 +37,7 @@ public class Indizio {
     public String[] getStringheIndizi() {
         return stringheIndizi;
     }
+    public boolean hasNextIndizio(){
+        return this.level<this.stringheIndizi.length-1;
+    }
 }

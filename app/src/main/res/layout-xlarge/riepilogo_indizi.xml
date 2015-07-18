@@ -6,30 +6,35 @@
     android:layout_height="@dimen/gestione_indizi_height"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_margin="10dp">
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentBottom="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/toolbarColor"
         android:orientation="vertical"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Riepilogo Indizi"
-            android:layout_gravity="top|center_horizontal"
-            android:gravity="center_horizontal"
-            android:id="@+id/riepilogoIndiziTitolo"
-            android:textStyle="bold"
-            android:textSize="@dimen/gestione_indizi_title_size" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:text="Indizi"
-            android:textSize="20dp"
-            android:gravity="center_horizontal"
-            android:id="@+id/riepilogoIndiziPinIndizio" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Riepilogo Indizi"
+        android:layout_gravity="top|center_horizontal"
+        android:gravity="center_horizontal"
+        android:id="@+id/riepilogoIndiziTitolo"
+        android:textStyle="bold"
+        android:textSize="@dimen/gestione_indizi_title_size" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="Indizi"
+        android:textSize="20dp"
+        android:gravity="center_horizontal"
+        android:id="@+id/riepilogoIndiziPinIndizio" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"

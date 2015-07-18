@@ -74,8 +74,14 @@ public class PintouristPopups {
                 @Override
                 public void onClick(View v) {
                     dismiss();
-                    MapsActivity.pintouristDialog = MapsActivity.pintouristPopups.new PopupIndizi(MapsActivity.getAppContext(), pin);
-                    MapsActivity.pintouristDialog.show();
+                    if (pin.getIndizi().hasNextIndizio()) {
+                        MapsActivity.pintouristDialog = MapsActivity.pintouristPopups.new PopupIndizi(MapsActivity.getAppContext(), pin);
+                        MapsActivity.pintouristDialog.show();
+                    }
+                    else{
+                        MapsActivity.pintouristDialog = MapsActivity.pintouristPopups.new PopupIndiziFineIndizi(MapsActivity.getAppContext(), pin);
+                        MapsActivity.pintouristDialog.show();
+                    }
                 }
             });
         }
@@ -100,7 +106,6 @@ public class PintouristPopups {
             domandaSfida.setText(this.sfida.getNextDomanda().getQuestion()); //ATTENZIONE! CHIAMATA A getNextDomanda IMPORTANTE! VA FATTA UNA SOLA VOLTA
             ImageView immagineSfida = (ImageView) this.findViewById(R.id.popupSfidaImmagine);
             immagineSfida.setImageResource(this.sfida.getCurrentDomanda().getImage());
-
             setupBottoniRisposta(this.sfida.getCurrentDomanda(), this, this.sfida);
         }
 
@@ -337,6 +342,18 @@ public class PintouristPopups {
                     btnAltroIndizio.setEnabled(true);
                 }
             }
+            else{
+                rigaIndizio = new TableRow(MapsActivity.getAppContext());
+                testoIndizio = new TextView(MapsActivity.getAppContext());
+                //testoIndizio.setText(p.getIndizi().getStringaIndizio(index));
+                testoIndizio.setText("Non hai selezionato nessun Pin obiettivo");
+                testoIndizio.setTextSize(30);
+                testoIndizio.setTextAppearance(MapsActivity.getAppContext(), android.R.style.TextAppearance_Large);
+                testoIndizio.setGravity(Gravity.CENTER_HORIZONTAL);
+                testoIndizio.setPadding(20, 20, 20, 20);
+                rigaIndizio.addView(testoIndizio);
+                tabellaListaIndizi.addView(rigaIndizio);
+            }
         }
     }
 
@@ -387,12 +404,10 @@ public class PintouristPopups {
         public void setUp() {
             funzioneBase(this);
             this.setContentView(R.layout.feedback_positivo);
-
             pin.setConquistato(true);
             MapsActivity.gamePhase= GamePhase.PIN_CHOICE;
             MapsActivity.mPinTarget=null;
             MapsActivity.suggeritore.setText(R.string.scegliPinPartenza);
-
             Button btnOk = (Button) this.findViewById(R.id.popupFeedbackBtnAvanti);
            btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -416,7 +431,6 @@ public class PintouristPopups {
         public void setUp() {
             funzioneBase(this);
             this.setContentView(R.layout.feedback_negativo);
-
 
             if (pin.getSfida().hasNextDomanda()){
                 TextView popupFeedbackNegativoMessaggio = (TextView) this.findViewById(R.id.popupFeedbackMessaggio);
@@ -443,12 +457,12 @@ public class PintouristPopups {
 
                     }
                 });
+                pin.setConquistato(true);
+                MapsActivity.gamePhase=GamePhase.PIN_CHOICE;
+                pin.getPinMarker().setTitle(pin.getNome());
+                MapsActivity.mPinTarget=null;
+                MapsActivity.suggeritore.setText(R.string.scegliPinPartenza);
             }
-
-            pin.setConquistato(true);
-            MapsActivity.gamePhase=GamePhase.PIN_CHOICE;
-            MapsActivity.mPinTarget=null;
-            MapsActivity.suggeritore.setText(R.string.scegliPinPartenza);
 
         }
     }

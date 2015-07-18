@@ -30,14 +30,11 @@ public class Avatar {
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.avatar_image))
                 .position(Utility.avatarLatLng)
                 .draggable(true)
-                .title(Utility.avatarTitle)
-                .snippet("My Position");
+                .title(Utility.avatarTitle);
         avatarLocation = new Location("gps");
         avatarLocation.setLatitude(avatarMarkerOptions.getPosition().latitude);
         avatarLocation.setLongitude(avatarMarkerOptions.getPosition().longitude);
-        Toast.makeText(MapsActivity.getAppContext(), avatarLocation.toString(), Toast.LENGTH_LONG).show();
-
-
+        //Toast.makeText(MapsActivity.getAppContext(), avatarLocation.toString(), Toast.LENGTH_LONG).show();
         MapsActivity.getmMapViewer().getmMap().setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
             @Override
             public void onMarkerDragStart(Marker marker) {

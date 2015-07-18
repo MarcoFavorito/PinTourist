@@ -305,16 +305,26 @@ public class MapsActivity extends FragmentActivity {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if (!marker.equals(mAvatar.getAvatarMarker())) {
-                    if (gamePhase == GamePhase.PIN_CHOICE) {
-                        for (Pin p : Utility.ZonaSanLorenzo.getPins_CurrentZone()) {
-                            if (p.getPinMarker().equals(marker) && !p.getIsConquistato()) {
-                                MapsActivity.mPinTarget = p;
-                            }
+                    Pin pinTemp=null;
+                    for (Pin p : Utility.ZonaSanLorenzo.getPins_CurrentZone()) {
+                        if (p.getPinMarker().equals(marker)) {
+                            pinTemp = p;
                         }
+                    }
+                    if (gamePhase == GamePhase.PIN_CHOICE) {
+                            if (pinTemp.getIsConquistato()) {
+                                Toast.makeText(MapsActivity.getAppContext(), "Questo Pin e' stato gia' conquistato...\n Impossibile selezionarlo come Pin Obiettivo",Toast.LENGTH_SHORT).show();
+                            }
+                            else if(pinTemp.getIndizi()==null){
+                                Toast.makeText(MapsActivity.getAppContext(), "Questo Pin non ha indizi disponibili in questa versione... \n Impossibile selezionarlo come Pin Obiettivo",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                MapsActivity.mPinTarget = pinTemp;
+                            }
                         if (mPinTarget!=null) {
                             MapsActivity.mPinTarget.getPinMarker().setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
                             //Utility.markers.get(markerId);
-                            Toast.makeText(MapsActivity.this, "You have selected the Pin with id: ", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MapsActivity.this, "You have selected the Pin with id: ", Toast.LENGTH_LONG).show();
                             suggeritore.setText(R.string.arrivaAlPin);
                             gamePhase = GamePhase.PIN_DISCOVERING;
                             setupPopupIndizi(mPinTarget);
@@ -322,7 +332,7 @@ public class MapsActivity extends FragmentActivity {
                     } else if (gamePhase == GamePhase.PIN_DISCOVERING) {
                         if (!MapsActivity.mPinTarget.getPinMarker().equals(marker)) {
                             //TODO: Immagine dialogo per confermare il cambio Pin Obiettivo: per ora non lo implementiamo
-                            Toast.makeText(MapsActivity.this, "You have selected the Pin with id: " + " but the target Pin was already selected", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MapsActivity.this, "Hai premuto sul Pin con id: "+ pinTemp.getPinId() + " ma il Pin Obiettivo è stato già selzionato.", Toast.LENGTH_LONG).show();
                         } else { //Pin Target == Pin premuto:
                             if (MapsActivity.mPinTarget.isIlluminato()) { //Sei vicino?
                                 setupPopupSfidaPrimaSchermata(mPinTarget);

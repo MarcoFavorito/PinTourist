@@ -1,13 +1,21 @@
 package gamification.pintourist.pintourist.meccanica;
 
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.location.Location;
+import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -135,11 +143,10 @@ public class Pin {
         this.belongingZone = belongingZone;
     }
     public void setConquistato(boolean conquistato) {
-        this.getPinMarker().setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-   /*     LatLng temp = this.getLatLng();
-        this.pinMarkerOptions = null;
-        pinMarkerOptions = new MarkerOptions().position(temp).icon(BitmapDescriptorFactory.fromResource(R.drawable.conquista_pin));
-    */
+        BitmapDrawable bd=(BitmapDrawable)  MapsActivity.getAppContext().getResources().getDrawable(R.drawable.conquista_pin);
+        Bitmap b=bd.getBitmap();
+        Bitmap bhalfsize=Bitmap.createScaledBitmap(b, b.getWidth()/6,b.getHeight()/6, false);
+        this.getPinMarker().setIcon((BitmapDescriptorFactory.fromBitmap(bhalfsize)));
         this.conquistato = conquistato;
     }
     public void setIndizi(Indizio indizi) {
@@ -183,10 +190,15 @@ public class Pin {
             Location avatarLocation = MapsActivity.getmAvatar().calculateAvatarLocation();
             Location pinTargetLocation = this.getPinMarkerLocation();
             //Toast.makeText(MapsActivity.getAppContext(), "Illuminato", Toast.LENGTH_LONG).show();
-
             if (avatarLocation.distanceTo(pinTargetLocation) < Utility.MIN_DSTANCE) {
                 this.isIlluminato=true;
-                //if (!isAnimationSet) setAnimazione(this.pinMarker);
+                if (!isAnimationSet){
+                    //setAnimazione(this.pinMarker);
+                    /*
+                    AnimazionePin anPin= new AnimazionePin(MapsActivity.getPinTarget());
+                    anPin.execute();
+                    */
+                }
                 return true;
             }
             else {
@@ -197,6 +209,36 @@ public class Pin {
         this.isIlluminato=false;
         return false;
     }
+
+    public final class AnimazionePin extends AsyncTask<Pin,Void,Void> {
+            private Pin pinTarget;
+
+            public AnimazionePin(Pin pinTarget){
+                this.pinTarget=pinTarget;
+            }
+
+
+            @Override
+            protected Void doInBackground (Pin... params) {
+                int i=0;
+                Marker m= this.pinTarget.getPinMarker();
+                for (i=0; i<Utility.iconArray.length;i++){
+                    m.setIcon(BitmapDescriptorFactory.defaultMarker(Utility.iconArray[i]));
+                    try{
+                        this.wait(1000);
+                    }
+                    catch(Exception e){
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPreExecute() {
+            }
+
+
+        }
 
     public void setAnimazione(final Marker marker){
         if (this.isIlluminato){

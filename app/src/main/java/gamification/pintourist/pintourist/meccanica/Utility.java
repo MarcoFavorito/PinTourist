@@ -61,9 +61,9 @@ public class Utility {
 
 
     static final Domanda domandaMedium=new Domanda(
-            "Perchè è stato costruito il Cimitero monumentale del Verano?",
-            new String[]{"Per rispettare l'editto napoleonico che imponeva le sepolture fuori dalle città",
-                    "In seguito ad una gravissima ondata di peste che colpì Roma",
+            "Perche' e' stato costruito il Cimitero monumentale del Verano?",
+            new String[]{"Per rispettare l'editto napoleonico che imponeva le sepolture fuori dalle citta'",
+                    "In seguito ad una gravissima ondata di peste che colpi' Roma",
                     "Per celebrare la morte del Re e conferirgli adeguata sepolture",
                     "Per volontà del papa Pio XI"
             },

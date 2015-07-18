@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/popup_indizi_width_large"
+    android:layout_height="@dimen/popup_indizi_height_large"
+    android:background="@color/white"
+    >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/container"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/toolbarColor"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/popupFeedbackTitolo"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:text="Sfida zona San Lorenzo Pin 3"
+                    android:textSize="@dimen/titleTextSize_large"
+                    android:textStyle="bold"
+                    android:padding="10dp" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    android:src="@drawable/conquista_pin"
+                    android:layout_margin="20dp"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Risposta Esatta! Hai conquistato il Pin!"
+                        android:id="@+id/popupFeedbackMessaggio"
+                        android:textSize="@dimen/normalTextSize_large"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="20dp"/>
+                    <FrameLayout
+                        android:layout_width="@dimen/NormalButtonWidth"
+                        android:layout_height="@dimen/NormalButtonHeight"
+                        android:layout_gravity="bottom|center_horizontal"
+                        android:gravity="center"
+                        android:layout_margin="20dp"
+                        >
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avanti"
+                            android:id="@+id/popupFeedbackBtnAvanti"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/pulsante_ok_indizi"
+                            />
+                    </FrameLayout>
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+</RelativeLayout>
