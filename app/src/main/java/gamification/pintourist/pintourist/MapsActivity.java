@@ -13,6 +13,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -47,12 +48,7 @@ public class MapsActivity extends FragmentActivity {
     public static TextView suggeritore;
     //Elementi interfaccia
     //Menu laterale
-    /*
-    private ListView mDrawerList;
-    private DrawerLayout mDrawer;
-    private CustomActionBarDrawerToggle mDrawerToggle;
-    private String[] menuItems;
-    */
+
     //Dialog per i popup
     public static Dialog pintouristDialog;
 
@@ -89,7 +85,7 @@ public class MapsActivity extends FragmentActivity {
 
         this.context=MapsActivity.this;
         this.suggeritore=(TextView) findViewById(R.id.suggeritore);
-/*
+
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         // set a custom shadow that overlays the main content when the drawer
         // opens
@@ -97,11 +93,11 @@ public class MapsActivity extends FragmentActivity {
         _initMenu();
         mDrawerToggle = new CustomActionBarDrawerToggle(this, mDrawer);
         mDrawer.setDrawerListener(mDrawerToggle);
-        /*
+
         // Set a toolbar to replace the action bar.
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        */
+        //this.toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
 
         // initialising the object of the FragmentManager. Here I'm passing getSupportFragmentManager().
         // You can pass getFragmentManager() if you are coding for Android 3.0 or above.
@@ -134,6 +130,7 @@ public class MapsActivity extends FragmentActivity {
             public void onClick(View v) {
                 //mDrawer.openDrawer(GravityCompat.START);
                 //dovrebbe aprire il menu laterale, ma non ci riesco...
+                mDrawer.openDrawer(Gravity.END);
             }
         });
         startGame();
@@ -234,7 +231,8 @@ public class MapsActivity extends FragmentActivity {
     }
 
 
-
+    private class CustomActionBarDrawerClick {
+    }
     private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle {
 
         public CustomActionBarDrawerToggle(Activity mActivity,DrawerLayout mDrawerLayout){
