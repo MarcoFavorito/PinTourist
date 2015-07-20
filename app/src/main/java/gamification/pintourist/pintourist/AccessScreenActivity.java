@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -37,12 +38,20 @@ public class AccessScreenActivity extends Activity {
         //Button b= (Button) findViewById(R.id.button);
         //From here copied
         ImageButton start = (ImageButton) findViewById(R.id.start);
+        ImageButton tutorial = (ImageButton) findViewById(R.id.tutorial);
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                access(v);
             }
         });
+        tutorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AccessScreenActivity.this, "Questa versione dell'applicazione non supporta la funzione 'Tutorial'...", Toast.LENGTH_LONG).show();            }
+        });
+
     }
 
     public void access(View view) {
@@ -52,4 +61,5 @@ public class AccessScreenActivity extends Activity {
         startActivity(intent);
         finish();
     }
+
 }
