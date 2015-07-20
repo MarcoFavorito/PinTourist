@@ -109,6 +109,12 @@
     <dimen name="toolbarButtons_width_normal">75dp</dimen>
     <dimen name="toolbarButtons_width_small">75dp</dimen>
 
+    <dimen name="buttonLocalizzami_size">50dp</dimen>
+    <dimen name="buttonLocalizzami_size_xlarge">100dp</dimen>
+    <dimen name="buttonLocalizzami_size_large">75dp</dimen>
+    <dimen name="buttonLocalizzami_size_normal">50dp</dimen>
+    <dimen name="buttonLocalizzami_size_small">50dp</dimen>
+
 
 
 </resources>

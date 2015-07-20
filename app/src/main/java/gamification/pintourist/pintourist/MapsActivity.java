@@ -108,7 +108,7 @@ public class MapsActivity extends FragmentActivity {
 
         mMapViewer.setUpMapIfNeeded();
         mAvatar.addAvatar();
-        mMapViewer.moveCameraTo(mAvatar.getAvatarMarkerOptions().getPosition(), 500);
+        mMapViewer.moveCameraTo(mAvatar.getAvatarMarkerOptions().getPosition(), 17);
 
         Utility.ZonaRioneMonti.draw();
         Utility.ZonaSanLorenzo.draw();
@@ -117,6 +117,8 @@ public class MapsActivity extends FragmentActivity {
 
         ImageButton bottoneIndizi=(ImageButton) findViewById(R.id.bottoneIndizi);
         ImageButton bottoneMenu=(ImageButton) findViewById(R.id.bottoneMenuPrincipale);
+        Button bottoneLocalizzami=(Button) findViewById(R.id.bottoneLocalizzami);
+
 
         bottoneIndizi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +135,17 @@ public class MapsActivity extends FragmentActivity {
                 mDrawer.openDrawer(Gravity.END);
             }
         });
+        bottoneLocalizzami.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMapViewer.moveCameraTo(new LatLng(MapsActivity.mAvatar.calculateAvatarLocation().getLatitude(),
+                                                    MapsActivity.mAvatar.calculateAvatarLocation().getLongitude()) ,17);
+            }
+        });
         startGame();
     }
+
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {

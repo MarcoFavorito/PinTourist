@@ -27,7 +27,7 @@
             android:background="#ffffbb49"
             android:layout_margin="7dp"
             android:gravity="center"
-            android:textSize="@dimen/normalTextSize_normal"
+            android:textSize="@dimen/buttonTextSize_normal"
             android:textStyle="bold"/>
 
         <ImageButton

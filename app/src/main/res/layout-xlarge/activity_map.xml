@@ -21,6 +21,18 @@
             android:id="@+id/map"
             tools:context=".MapsActivity"
             android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+        <Button
+            android:layout_width="@dimen/buttonLocalizzami_size_xlarge"
+            android:layout_height="@dimen/buttonLocalizzami_size_xlarge"
+            android:id="@+id/bottoneLocalizzami"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/localizzazione"
+            />
     </RelativeLayout>
 
     <ListView
